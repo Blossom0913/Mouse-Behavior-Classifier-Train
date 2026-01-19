@@ -1,6 +1,5 @@
 """
 Mouse Behavior Classification Package
-小鼠行为分类工具包
 """
 
 from .label_parser import AnnotationParser, parse_all_annotations, get_class_names
@@ -9,7 +8,9 @@ from .data_loader import (
     MouseBehaviorDataset,
     prepare_dataset,
     create_data_loaders,
-    create_numpy_splits
+    create_numpy_splits,
+    create_video_level_splits,
+    verify_split_integrity
 )
 from .models import (
     BehaviorMLP,
@@ -21,7 +22,7 @@ from .models import (
     compute_class_weights
 )
 
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 __author__ = 'Mouse Behavior Lab'
 
 __all__ = [
@@ -37,6 +38,8 @@ __all__ = [
     'prepare_dataset',
     'create_data_loaders',
     'create_numpy_splits',
+    'create_video_level_splits',
+    'verify_split_integrity',
     # Models
     'BehaviorMLP',
     'BehaviorLSTM',
