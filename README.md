@@ -178,17 +178,17 @@ Step 5: Results Visualization
 ```python
 from src import prepare_dataset, create_data_loaders, get_pytorch_model
 
-# 加载数据
+# load data
 X, y, feature_names, class_info = prepare_dataset(
     'data/dlc_csv', 
     'data/annotations',
     experiment='aggression'  # 或 'behavior'
 )
 
-# 创建数据加载器
+# create data loader
 train_loader, val_loader, test_loader, scaler = create_data_loaders(X, y)
 
-# 创建模型
+# initialize model
 model = get_pytorch_model('mlp', n_features=26, n_classes=7)
 ```
 
@@ -271,11 +271,11 @@ python model_comparison_8models.py
 
 Modify data paths in the notebook:
 ```python
-# 8特征实验
+# 8 feature experiments
 feature_file = "/kaggle/input/mouse-behavior/dataset58/feature8_58.xlsx"
 label_file = "/kaggle/input/mouse-behavior/dataset58/merged_labels_aggression.xlsx"
 
-# 26特征实验
+# 26 feature experiments
 CSV_FOLDER = "/kaggle/input/mouse-behavior/dlc_csv"
 ANNOT_FOLDER = "/kaggle/input/mouse-behavior/annotations"
 ```
@@ -303,8 +303,8 @@ S2:	start	end	type
 ...
 ```
 
-- **S1**: Behavior层级标注 (base/aggression/social/nonsocial)
-- **S2**: Aggression细分标注 (lateralthreat/keepdown/clinch/uprightposture/freezing/bite/chase)
+- **S1**: Behavior level annotaion (base/aggression/social/nonsocial)
+- **S2**: Aggression specific annotation (lateralthreat/keepdown/clinch/uprightposture/freezing/bite/chase)
 
 ---
 
@@ -315,10 +315,10 @@ S2:	start	end	type
 - LightGBM: `*.pkl` (model + scaler)
 
 ### Visualization Charts
-- `model_comparison_overall.png` - 总体性能对比
+- `model_comparison_overall.png` - performance overall
 - `model_comparison_per_class.png` - Per-Class F1
-- `model_comparison_best_worst.png` - 最佳/最差类别
-- `model_comparison_stability.png` - 稳定性分析
+- `model_comparison_best_worst.png` - Best / Worst Class
+- `model_comparison_stability.png` - Stability Analysis
 
 ### Statistics Tables
 ```
