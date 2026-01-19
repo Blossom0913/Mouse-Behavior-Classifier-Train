@@ -1,0 +1,73 @@
+Caltech Behavior Annotator - Annotation File
+
+Configuration file:
+base	z
+aggression	a
+freezing	f
+lateralthreat	l
+keepdown	d
+chase	c
+uprightposture	u
+social	s
+bite	b
+nonsocial	e
+clinch	j
+
+S1:	start	end	type
+-----------------------------
+   	1	10	base
+   	11	88	nonsocial
+   	89	459	social
+   	460	604	nonsocial
+   	605	665	social
+   	666	714	nonsocial
+   	715	1026	social
+   	1027	1124	nonsocial
+   	1125	1147	social
+   	1148	1258	nonsocial
+   	1259	1276	social
+   	1277	1308	nonsocial
+   	1309	1634	social
+   	1635	1710	nonsocial
+   	1711	1838	social
+   	1839	2102	nonsocial
+   	2103	2120	social
+   	2121	2246	nonsocial
+   	2247	2499	social
+   	2500	2563	nonsocial
+   	2564	2596	social
+   	2597	2745	nonsocial
+   	2746	2825	social
+   	2826	3280	nonsocial
+   	3281	3358	social
+   	3359	4379	nonsocial
+   	4380	4538	social
+   	4539	4577	nonsocial
+   	4578	4621	social
+   	4622	4659	nonsocial
+   	4660	4687	social
+   	4688	4743	nonsocial
+   	4744	4768	social
+   	4769	5473	nonsocial
+   	5474	5745	social
+   	5746	6046	nonsocial
+   	6047	6116	social
+   	6117	6608	nonsocial
+   	6609	6978	social
+   	6979	7056	nonsocial
+   	7057	7441	social
+   	7442	7955	nonsocial
+   	7956	8047	social
+   	8048	8791	nonsocial
+   	8792	9291	social
+   	9292	9584	nonsocial
+   	9585	10122	social
+   	10123	10894	nonsocial
+   	10895	10924	social
+   	10925	11083	nonsocial
+   	11084	11136	social
+   	11137	11372	nonsocial
+   	11373	11500	social
+   	11501	12010	nonsocial
+   	12011	14750	base
+  

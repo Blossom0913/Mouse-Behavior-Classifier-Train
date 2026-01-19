@@ -1,0 +1,97 @@
+Caltech Behavior Annotator - Annotation File
+
+Configuration file:
+base	z
+aggression	a
+freezing	f
+lateralthreat	l
+keepdown	d
+chase	c
+uprightposture	u
+social	s
+bite	b
+nonsocial	e
+clinch	j
+
+S1:	start	end	type
+-----------------------------
+   	1	512	base
+   	513	694	nonsocial
+   	695	850	social
+   	851	1199	nonsocial
+   	1200	1449	social
+   	1450	1540	nonsocial
+   	1541	1567	social
+   	1568	1621	nonsocial
+   	1622	1753	social
+   	1754	1832	nonsocial
+   	1833	2079	social
+   	2080	2244	nonsocial
+   	2245	2294	social
+   	2295	2481	nonsocial
+   	2482	2712	social
+   	2713	2767	nonsocial
+   	2768	2848	social
+   	2849	3411	nonsocial
+   	3412	3884	social
+   	3885	4027	nonsocial
+   	4028	4394	social
+   	4395	4608	nonsocial
+   	4609	4649	social
+   	4650	4693	nonsocial
+   	4694	5010	social
+   	5011	5212	nonsocial
+   	5213	5250	social
+   	5251	5363	nonsocial
+   	5364	5385	social
+   	5386	5421	nonsocial
+   	5422	5622	social
+   	5623	5797	nonsocial
+   	5798	5816	social
+   	5817	5852	nonsocial
+   	5853	5958	social
+   	5959	6075	nonsocial
+   	6076	6115	aggression
+   	6116	6137	nonsocial
+   	6138	6372	social
+   	6373	6417	nonsocial
+   	6418	6449	social
+   	6450	6577	nonsocial
+   	6578	6643	social
+   	6644	7155	nonsocial
+   	7156	7396	social
+   	7397	7632	nonsocial
+   	7633	7941	social
+   	7942	8113	nonsocial
+   	8114	8364	social
+   	8365	8390	aggression
+   	8391	8815	social
+   	8816	8868	nonsocial
+   	8869	8961	social
+   	8962	9215	nonsocial
+   	9216	9321	aggression
+   	9322	9472	social
+   	9473	9527	nonsocial
+   	9528	9546	social
+   	9547	9685	nonsocial
+   	9686	10724	social
+   	10725	11439	nonsocial
+   	11440	11712	social
+   	11713	12005	nonsocial
+   	12006	12057	social
+   	12058	12138	nonsocial
+   	12139	12376	social
+   	12377	12512	nonsocial
+   	12513	13945	base
+  
+S2:	start	end	type
+-----------------------------
+   	1	6075	base
+   	6076	6115	lateralthreat
+   	6116	8364	base
+   	8365	8374	lateralthreat
+   	8375	8390	clinch
+   	8391	9215	base
+   	9216	9321	lateralthreat
+   	9322	13945	base
+  

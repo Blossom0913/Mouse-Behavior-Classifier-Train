@@ -1,0 +1,147 @@
+Caltech Behavior Annotator - Annotation File
+
+Configuration file:
+base	z
+aggression	a
+freezing	f
+lateralthreat	l
+keepdown	d
+chase	c
+uprightposture	u
+social	s
+bite	b
+nonsocial	e
+clinch	j
+
+S1:	start	end	type
+-----------------------------
+   	1	1186	base
+   	1187	1215	social
+   	1216	1291	nonsocial
+   	1292	1378	social
+   	1379	1385	nonsocial
+   	1386	2452	social
+   	2453	2544	nonsocial
+   	2545	2568	social
+   	2569	3991	nonsocial
+   	3992	4121	social
+   	4122	4230	nonsocial
+   	4231	4348	social
+   	4349	4434	nonsocial
+   	4435	4458	social
+   	4459	4562	nonsocial
+   	4563	4705	social
+   	4706	4731	nonsocial
+   	4732	4776	social
+   	4777	4922	nonsocial
+   	4923	4958	social
+   	4959	4982	nonsocial
+   	4983	5009	social
+   	5010	5271	nonsocial
+   	5272	5335	social
+   	5336	5396	nonsocial
+   	5397	5566	social
+   	5567	5706	nonsocial
+   	5707	5736	social
+   	5737	5827	nonsocial
+   	5828	5890	social
+   	5891	6186	nonsocial
+   	6187	6333	social
+   	6334	6470	nonsocial
+   	6471	6499	social
+   	6500	6747	nonsocial
+   	6748	6810	social
+   	6811	7037	nonsocial
+   	7038	7066	social
+   	7067	7456	nonsocial
+   	7457	7472	social
+   	7473	7652	aggression
+   	7653	7681	social
+   	7682	7701	nonsocial
+   	7702	7708	social
+   	7709	7938	aggression
+   	7939	8016	social
+   	8017	8043	aggression
+   	8044	8165	nonsocial
+   	8166	8199	social
+   	8200	8259	nonsocial
+   	8260	8313	social
+   	8314	8488	nonsocial
+   	8489	8536	social
+   	8537	8943	aggression
+   	8944	8949	social
+   	8950	9037	nonsocial
+   	9038	9084	social
+   	9085	9172	aggression
+   	9173	9321	social
+   	9322	9680	nonsocial
+   	9681	9912	social
+   	9913	9927	nonsocial
+   	9928	9990	social
+   	9991	10171	nonsocial
+   	10172	10221	social
+   	10222	10232	nonsocial
+   	10233	10687	social
+   	10688	11165	nonsocial
+   	11166	11193	social
+   	11194	11336	aggression
+   	11337	11480	social
+   	11481	11806	aggression
+   	11807	12095	social
+   	12096	12125	nonsocial
+   	12126	12428	social
+   	12429	12548	nonsocial
+   	12549	12629	social
+   	12630	12794	nonsocial
+   	12795	12807	social
+   	12808	13186	nonsocial
+   	13187	14627	base
+  
+S2:	start	end	type
+-----------------------------
+   	1	7472	base
+   	7473	7489	lateralthreat
+   	7490	7541	clinch
+   	7542	7602	lateralthreat
+   	7603	7632	clinch
+   	7633	7646	uprightposture
+   	7647	7652	lateralthreat
+   	7653	7708	base
+   	7709	7715	lateralthreat
+   	7716	7759	clinch
+   	7760	7806	keepdown
+   	7807	7862	clinch
+   	7863	7938	lateralthreat
+   	7939	8016	base
+   	8017	8028	lateralthreat
+   	8029	8043	clinch
+   	8044	8536	base
+   	8537	8556	lateralthreat
+   	8557	8581	clinch
+   	8582	8611	lateralthreat
+   	8612	8634	clinch
+   	8635	8670	keepdown
+   	8671	8706	lateralthreat
+   	8707	8801	clinch
+   	8802	8814	lateralthreat
+   	8815	8841	uprightposture
+   	8842	8911	lateralthreat
+   	8912	8922	clinch
+   	8923	8943	lateralthreat
+   	8944	9084	base
+   	9085	9104	lateralthreat
+   	9105	9172	clinch
+   	9173	11193	base
+   	11194	11222	lateralthreat
+   	11223	11236	uprightposture
+   	11237	11248	clinch
+   	11249	11336	lateralthreat
+   	11337	11480	base
+   	11481	11562	clinch
+   	11563	11612	keepdown
+   	11613	11673	clinch
+   	11674	11757	lateralthreat
+   	11758	11777	clinch
+   	11778	11806	keepdown
+   	11807	14627	base
+  

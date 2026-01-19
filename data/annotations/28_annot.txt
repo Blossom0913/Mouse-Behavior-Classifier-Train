@@ -1,0 +1,104 @@
+Caltech Behavior Annotator - Annotation File
+
+Configuration file:
+base	z
+aggression	a
+freezing	f
+lateralthreat	l
+keepdown	d
+chase	c
+uprightposture	u
+social	s
+bite	b
+nonsocial	e
+clinch	j
+
+S1:	start	end	type
+-----------------------------
+   	1	27	base
+   	28	220	social
+   	221	388	nonsocial
+   	389	867	social
+   	868	1097	nonsocial
+   	1098	1643	social
+   	1644	1876	nonsocial
+   	1877	2394	social
+   	2395	2484	nonsocial
+   	2485	2717	social
+   	2718	2847	nonsocial
+   	2848	3063	social
+   	3064	3108	aggression
+   	3109	3209	social
+   	3210	3248	nonsocial
+   	3249	3481	social
+   	3482	3623	nonsocial
+   	3624	3752	social
+   	3753	3895	nonsocial
+   	3896	4050	social
+   	4051	4102	nonsocial
+   	4103	4167	social
+   	4168	4399	nonsocial
+   	4400	4503	social
+   	4504	4917	nonsocial
+   	4918	5331	social
+   	5332	5900	nonsocial
+   	5901	6030	social
+   	6031	6379	nonsocial
+   	6380	6631	social
+   	6632	6675	aggression
+   	6676	7078	social
+   	7079	7660	nonsocial
+   	7661	7841	social
+   	7842	8385	nonsocial
+   	8386	8462	social
+   	8463	8517	nonsocial
+   	8518	8567	social
+   	8568	8614	aggression
+   	8615	8721	social
+   	8722	9498	nonsocial
+   	9499	9575	social
+   	9576	9640	aggression
+   	9641	9731	social
+   	9732	9912	nonsocial
+   	9913	10001	social
+   	10002	10290	aggression
+   	10291	10338	social
+   	10339	10647	aggression
+   	10648	11206	social
+   	11207	11620	nonsocial
+   	11621	11840	social
+   	11841	11869	aggression
+   	11870	12027	social
+   	12028	13691	base
+  
+S2:	start	end	type
+-----------------------------
+   	1	3063	base
+   	3064	3078	lateralthreat
+   	3079	3094	clinch
+   	3095	3108	keepdown
+   	3109	6631	base
+   	6632	6675	lateralthreat
+   	6676	8567	base
+   	8568	8614	lateralthreat
+   	8615	9575	base
+   	9576	9615	lateralthreat
+   	9616	9617	clinch
+   	9618	9640	keepdown
+   	9641	10001	base
+   	10002	10011	lateralthreat
+   	10012	10183	keepdown
+   	10184	10198	clinch
+   	10199	10216	keepdown
+   	10217	10226	clinch
+   	10227	10290	keepdown
+   	10291	10338	base
+   	10339	10392	clinch
+   	10393	10551	keepdown
+   	10552	10560	bite
+   	10561	10596	clinch
+   	10597	10647	keepdown
+   	10648	11840	base
+   	11841	11869	lateralthreat
+   	11870	13691	base
+  

@@ -1,0 +1,94 @@
+Caltech Behavior Annotator - Annotation File
+
+Configuration file:
+base	z
+aggression	a
+freezing	f
+lateralthreat	l
+keepdown	d
+chase	c
+uprightposture	u
+social	s
+bite	b
+nonsocial	e
+clinch	j
+
+S1:	start	end	type
+-----------------------------
+   	1	511	base
+   	512	644	nonsocial
+   	645	697	social
+   	698	711	nonsocial
+   	712	824	social
+   	825	853	nonsocial
+   	854	1254	social
+   	1255	1315	nonsocial
+   	1316	1402	social
+   	1403	1620	aggression
+   	1621	1795	social
+   	1796	1850	aggression
+   	1851	2242	social
+   	2243	2453	nonsocial
+   	2454	2677	social
+   	2678	2763	nonsocial
+   	2764	3588	social
+   	3589	3669	nonsocial
+   	3670	3736	social
+   	3737	3895	nonsocial
+   	3896	4191	social
+   	4192	4299	nonsocial
+   	4300	4635	social
+   	4636	4705	nonsocial
+   	4706	4740	social
+   	4741	5123	nonsocial
+   	5124	5370	social
+   	5371	5501	nonsocial
+   	5502	5551	social
+   	5552	6229	nonsocial
+   	6230	6464	social
+   	6465	6898	nonsocial
+   	6899	7181	social
+   	7182	7197	nonsocial
+   	7198	7328	social
+   	7329	7700	nonsocial
+   	7701	8023	social
+   	8024	8377	nonsocial
+   	8378	8389	social
+   	8390	8614	nonsocial
+   	8615	8652	social
+   	8653	8859	nonsocial
+   	8860	9114	social
+   	9115	9145	nonsocial
+   	9146	9206	social
+   	9207	9370	nonsocial
+   	9371	9535	social
+   	9536	10140	nonsocial
+   	10141	10209	social
+   	10210	10224	nonsocial
+   	10225	10330	social
+   	10331	10611	nonsocial
+   	10612	10958	social
+   	10959	11029	nonsocial
+   	11030	11068	social
+   	11069	11335	nonsocial
+   	11336	11516	social
+   	11517	11563	nonsocial
+   	11564	11597	social
+   	11598	11622	nonsocial
+   	11623	11698	social
+   	11699	11828	nonsocial
+   	11829	11890	social
+   	11891	12068	nonsocial
+   	12069	12142	social
+   	12143	12266	nonsocial
+   	12267	12511	social
+   	12512	14880	base
+  
+S2:	start	end	type
+-----------------------------
+   	1	1402	base
+   	1403	1620	lateralthreat
+   	1621	1795	base
+   	1796	1850	lateralthreat
+   	1851	14880	base
+  

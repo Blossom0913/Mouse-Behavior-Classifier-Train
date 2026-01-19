@@ -1,0 +1,107 @@
+Caltech Behavior Annotator - Annotation File
+
+Configuration file:
+base	z
+aggression	a
+freezing	f
+lateralthreat	l
+keepdown	d
+chase	c
+uprightposture	u
+social	s
+bite	b
+nonsocial	e
+clinch	j
+
+S1:	start	end	type
+-----------------------------
+   	1	1006	base
+   	1007	1215	nonsocial
+   	1216	1509	social
+   	1510	1542	nonsocial
+   	1543	1751	social
+   	1752	1792	nonsocial
+   	1793	1930	social
+   	1931	2069	nonsocial
+   	2070	2279	social
+   	2280	2440	aggression
+   	2441	2571	social
+   	2572	2706	nonsocial
+   	2707	2792	social
+   	2793	3093	nonsocial
+   	3094	3812	social
+   	3813	4068	aggression
+   	4069	4164	nonsocial
+   	4165	4201	social
+   	4202	4334	nonsocial
+   	4335	4343	social
+   	4344	4411	nonsocial
+   	4412	4499	social
+   	4500	4545	nonsocial
+   	4546	4579	social
+   	4580	4715	nonsocial
+   	4716	4808	social
+   	4809	5039	nonsocial
+   	5040	5169	social
+   	5170	5511	nonsocial
+   	5512	5612	social
+   	5613	5756	nonsocial
+   	5757	5956	social
+   	5957	6072	aggression
+   	6073	6212	social
+   	6213	6246	nonsocial
+   	6247	6260	social
+   	6261	6297	aggression
+   	6298	6431	social
+   	6432	6576	nonsocial
+   	6577	6890	social
+   	6891	7179	nonsocial
+   	7180	7337	social
+   	7338	7398	nonsocial
+   	7399	7435	social
+   	7436	7602	nonsocial
+   	7603	7650	social
+   	7651	8078	nonsocial
+   	8079	8276	social
+   	8277	9044	nonsocial
+   	9045	9213	social
+   	9214	9256	nonsocial
+   	9257	9275	social
+   	9276	9532	nonsocial
+   	9533	9669	social
+   	9670	10408	nonsocial
+   	10409	10490	social
+   	10491	11350	nonsocial
+   	11351	11440	social
+   	11441	11510	nonsocial
+   	11511	11884	social
+   	11885	11928	nonsocial
+   	11929	12013	social
+   	12014	12055	nonsocial
+   	12056	12135	social
+   	12136	12521	nonsocial
+   	12522	12927	social
+   	12928	13006	nonsocial
+   	13007	14880	base
+  
+S2:	start	end	type
+-----------------------------
+   	1	2279	base
+   	2280	2440	lateralthreat
+   	2441	3812	base
+   	3813	3819	lateralthreat
+   	3820	3845	uprightposture
+   	3846	3871	clinch
+   	3872	3918	lateralthreat
+   	3919	3938	clinch
+   	3939	3998	keepdown
+   	3999	4012	clinch
+   	4013	4068	lateralthreat
+   	4069	5956	base
+   	5957	5977	lateralthreat
+   	5978	6051	clinch
+   	6052	6072	lateralthreat
+   	6073	6260	base
+   	6261	6297	lateralthreat
+   	6298	14880	base
+  

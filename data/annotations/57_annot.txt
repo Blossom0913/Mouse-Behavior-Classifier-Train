@@ -1,0 +1,110 @@
+Caltech Behavior Annotator - Annotation File
+
+Configuration file:
+base	z
+aggression	a
+freezing	f
+lateralthreat	l
+keepdown	d
+chase	c
+uprightposture	u
+social	s
+bite	b
+nonsocial	e
+clinch	j
+
+S1:	start	end	type
+-----------------------------
+   	1	417	base
+   	418	436	social
+   	437	529	nonsocial
+   	530	613	social
+   	614	644	nonsocial
+   	645	1195	social
+   	1196	1296	nonsocial
+   	1297	1421	social
+   	1422	1437	nonsocial
+   	1438	1479	social
+   	1480	1518	nonsocial
+   	1519	1863	social
+   	1864	1977	nonsocial
+   	1978	2123	social
+   	2124	2173	nonsocial
+   	2174	2240	social
+   	2241	2508	nonsocial
+   	2509	2746	social
+   	2747	3846	aggression
+   	3847	3869	social
+   	3870	3968	nonsocial
+   	3969	3993	social
+   	3994	4117	nonsocial
+   	4118	4313	social
+   	4314	4663	nonsocial
+   	4664	4698	social
+   	4699	5175	nonsocial
+   	5176	5210	social
+   	5211	5286	nonsocial
+   	5287	5408	social
+   	5409	5568	nonsocial
+   	5569	5987	social
+   	5988	6109	nonsocial
+   	6110	6167	social
+   	6168	6226	nonsocial
+   	6227	6241	social
+   	6242	6291	nonsocial
+   	6292	6468	social
+   	6469	6717	nonsocial
+   	6718	6811	social
+   	6812	6936	nonsocial
+   	6937	6983	social
+   	6984	7449	nonsocial
+   	7450	8129	social
+   	8130	8185	nonsocial
+   	8186	8303	social
+   	8304	8816	nonsocial
+   	8817	8849	social
+   	8850	8897	nonsocial
+   	8898	9156	social
+   	9157	9373	nonsocial
+   	9374	9527	social
+   	9528	9614	nonsocial
+   	9615	9692	social
+   	9693	9771	nonsocial
+   	9772	9798	social
+   	9799	9833	nonsocial
+   	9834	9883	social
+   	9884	10082	nonsocial
+   	10083	10196	social
+   	10197	10262	nonsocial
+   	10263	10287	social
+   	10288	10402	nonsocial
+   	10403	11007	social
+   	11008	11203	nonsocial
+   	11204	11289	social
+   	11290	11425	aggression
+   	11426	11481	nonsocial
+   	11482	11548	social
+   	11549	11660	nonsocial
+   	11661	12070	social
+   	12071	12109	nonsocial
+   	12110	12176	social
+   	12177	12245	nonsocial
+   	12246	12417	social
+   	12418	14870	base
+  
+S2:	start	end	type
+-----------------------------
+   	1	2746	base
+   	2747	2800	lateralthreat
+   	2801	2842	clinch
+   	2843	2858	lateralthreat
+   	2859	2909	clinch
+   	2910	3433	lateralthreat
+   	3434	3459	clinch
+   	3460	3597	lateralthreat
+   	3598	3659	bite
+   	3660	3846	lateralthreat
+   	3847	11289	base
+   	11290	11425	lateralthreat
+   	11426	14870	base
+  

@@ -1,0 +1,174 @@
+Caltech Behavior Annotator - Annotation File
+
+Configuration file:
+base	z
+aggression	a
+freezing	f
+lateralthreat	l
+keepdown	d
+chase	c
+uprightposture	u
+social	s
+bite	b
+nonsocial	e
+clinch	j
+
+S1:	start	end	type
+-----------------------------
+   	1	647	base
+   	648	895	social
+   	896	923	nonsocial
+   	924	1002	social
+   	1003	1099	nonsocial
+   	1100	1271	social
+   	1272	1381	aggression
+   	1382	2243	social
+   	2244	2282	nonsocial
+   	2283	2475	social
+   	2476	2601	nonsocial
+   	2602	2639	social
+   	2640	2884	nonsocial
+   	2885	2944	social
+   	2945	3008	aggression
+   	3009	3111	social
+   	3112	3239	nonsocial
+   	3240	3659	social
+   	3660	3725	aggression
+   	3726	3762	social
+   	3763	4065	nonsocial
+   	4066	4077	social
+   	4078	4109	nonsocial
+   	4110	4146	social
+   	4147	4215	nonsocial
+   	4216	4232	social
+   	4233	4254	nonsocial
+   	4255	4343	social
+   	4344	4478	nonsocial
+   	4479	4509	social
+   	4510	4597	nonsocial
+   	4598	4635	social
+   	4636	5126	nonsocial
+   	5127	5137	social
+   	5138	5285	nonsocial
+   	5286	5314	social
+   	5315	5462	nonsocial
+   	5463	5476	social
+   	5477	5563	nonsocial
+   	5564	5566	social
+   	5567	5613	nonsocial
+   	5614	5660	social
+   	5661	5931	nonsocial
+   	5932	5955	social
+   	5956	6036	nonsocial
+   	6037	6188	aggression
+   	6189	6200	social
+   	6201	6217	nonsocial
+   	6218	6452	social
+   	6453	6708	aggression
+   	6709	6885	social
+   	6886	6926	nonsocial
+   	6927	6962	social
+   	6963	7117	nonsocial
+   	7118	7197	social
+   	7198	7223	nonsocial
+   	7224	7261	social
+   	7262	7380	nonsocial
+   	7381	7465	social
+   	7466	7547	nonsocial
+   	7548	7577	social
+   	7578	7636	aggression
+   	7637	7721	nonsocial
+   	7722	7864	aggression
+   	7865	8148	social
+   	8149	8274	nonsocial
+   	8275	8461	social
+   	8462	8510	nonsocial
+   	8511	8724	social
+   	8725	8752	nonsocial
+   	8753	8884	social
+   	8885	8919	nonsocial
+   	8920	9192	social
+   	9193	9491	aggression
+   	9492	9613	social
+   	9614	11321	aggression
+   	11322	11519	nonsocial
+   	11520	11538	social
+   	11539	11649	nonsocial
+   	11650	11840	aggression
+   	11841	12190	social
+   	12191	12294	aggression
+   	12295	12647	social
+   	12648	13534	base
+  
+S2:	start	end	type
+-----------------------------
+   	1	1271	base
+   	1272	1381	lateralthreat
+   	1382	2944	base
+   	2945	2957	lateralthreat
+   	2958	2976	clinch
+   	2977	3007	lateralthreat
+   	3008	3659	base
+   	3660	3725	lateralthreat
+   	3726	6036	base
+   	6037	6099	lateralthreat
+   	6100	6115	uprightposture
+   	6116	6188	lateralthreat
+   	6189	6452	base
+   	6453	6557	lateralthreat
+   	6558	6587	clinch
+   	6588	6608	lateralthreat
+   	6609	6688	clinch
+   	6689	6708	lateralthreat
+   	6709	7577	base
+   	7578	7606	lateralthreat
+   	7607	7618	clinch
+   	7619	7636	uprightposture
+   	7637	7721	base
+   	7722	7747	lateralthreat
+   	7748	7766	clinch
+   	7767	7830	lateralthreat
+   	7831	7841	uprightposture
+   	7842	7864	clinch
+   	7865	9192	base
+   	9193	9234	lateralthreat
+   	9235	9358	clinch
+   	9359	9491	keepdown
+   	9492	9613	base
+   	9614	9661	lateralthreat
+   	9662	9718	clinch
+   	9719	9789	uprightposture
+   	9790	9844	clinch
+   	9845	9936	keepdown
+   	9937	10066	lateralthreat
+   	10067	10099	uprightposture
+   	10100	10127	clinch
+   	10128	10290	keepdown
+   	10291	10318	clinch
+   	10319	10429	keepdown
+   	10430	10473	clinch
+   	10474	10518	lateralthreat
+   	10519	10545	uprightposture
+   	10546	10583	clinch
+   	10584	10622	uprightposture
+   	10623	10683	chase
+   	10684	10810	lateralthreat
+   	10811	10918	clinch
+   	10919	10935	lateralthreat
+   	10936	10949	clinch
+   	10950	11013	keepdown
+   	11014	11224	clinch
+   	11225	11290	keepdown
+   	11291	11321	lateralthreat
+   	11322	11649	base
+   	11650	11672	lateralthreat
+   	11673	11719	clinch
+   	11720	11777	lateralthreat
+   	11778	11786	uprightposture
+   	11787	11840	lateralthreat
+   	11841	12190	base
+   	12191	12218	lateralthreat
+   	12219	12268	clinch
+   	12269	12294	lateralthreat
+   	12295	13534	base
+  

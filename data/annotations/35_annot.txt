@@ -1,0 +1,194 @@
+Caltech Behavior Annotator - Annotation File
+
+Configuration file:
+base	z
+aggression	a
+freezing	f
+lateralthreat	l
+keepdown	d
+chase	c
+uprightposture	u
+social	s
+bite	b
+nonsocial	e
+clinch	j
+
+S1:	start	end	type
+-----------------------------
+   	1	1318	base
+   	1319	2292	social
+   	2293	2339	nonsocial
+   	2340	2762	social
+   	2763	3045	aggression
+   	3046	3159	social
+   	3160	3249	aggression
+   	3250	3657	social
+   	3658	3719	aggression
+   	3720	3947	social
+   	3948	4082	nonsocial
+   	4083	4192	social
+   	4193	5276	aggression
+   	5277	5401	social
+   	5402	5548	aggression
+   	5549	5691	nonsocial
+   	5692	5960	social
+   	5961	6085	nonsocial
+   	6086	6235	social
+   	6236	6299	nonsocial
+   	6300	6411	social
+   	6412	6511	nonsocial
+   	6512	6605	social
+   	6606	6738	nonsocial
+   	6739	6884	social
+   	6885	6906	nonsocial
+   	6907	6946	social
+   	6947	7044	nonsocial
+   	7045	7173	social
+   	7174	7243	nonsocial
+   	7244	7269	social
+   	7270	7452	nonsocial
+   	7453	7588	social
+   	7589	7997	nonsocial
+   	7998	8130	social
+   	8131	8498	aggression
+   	8499	8595	social
+   	8596	8697	nonsocial
+   	8698	9087	aggression
+   	9088	9177	nonsocial
+   	9178	9372	aggression
+   	9373	9414	social
+   	9415	9489	aggression
+   	9490	9838	nonsocial
+   	9839	9871	social
+   	9872	9915	nonsocial
+   	9916	10596	social
+   	10597	10941	nonsocial
+   	10942	11109	aggression
+   	11110	11262	nonsocial
+   	11263	11377	social
+   	11378	11539	nonsocial
+   	11540	11630	social
+   	11631	11769	nonsocial
+   	11770	12187	social
+   	12188	12382	aggression
+   	12383	12474	social
+   	12475	12540	nonsocial
+   	12541	12711	social
+   	12712	12973	nonsocial
+   	12974	13005	social
+   	13006	13168	aggression
+   	13169	13318	social
+   	13319	14303	base
+  
+S2:	start	end	type
+-----------------------------
+   	1	2762	base
+   	2763	2775	lateralthreat
+   	2776	2788	clinch
+   	2789	2858	lateralthreat
+   	2859	2870	clinch
+   	2871	2930	keepdown
+   	2931	2947	lateralthreat
+   	2948	2967	chase
+   	2968	3045	lateralthreat
+   	3046	3159	base
+   	3160	3174	lateralthreat
+   	3175	3185	clinch
+   	3186	3209	lateralthreat
+   	3210	3220	clinch
+   	3221	3249	lateralthreat
+   	3250	3657	base
+   	3658	3688	lateralthreat
+   	3689	3693	uprightposture
+   	3694	3705	clinch
+   	3706	3719	lateralthreat
+   	3720	4192	base
+   	4193	4200	lateralthreat
+   	4201	4216	clinch
+   	4217	4452	lateralthreat
+   	4453	4472	chase
+   	4473	4485	lateralthreat
+   	4486	4501	clinch
+   	4502	4572	keepdown
+   	4573	4587	clinch
+   	4588	4601	chase
+   	4602	4608	lateralthreat
+   	4609	4625	clinch
+   	4626	4803	keepdown
+   	4804	4823	lateralthreat
+   	4824	4844	chase
+   	4845	4911	lateralthreat
+   	4912	4932	clinch
+   	4933	4967	lateralthreat
+   	4968	5043	clinch
+   	5044	5120	keepdown
+   	5121	5151	clinch
+   	5152	5230	lateralthreat
+   	5231	5260	clinch
+   	5261	5276	lateralthreat
+   	5277	5401	base
+   	5402	5419	chase
+   	5420	5440	lateralthreat
+   	5441	5503	clinch
+   	5504	5533	keepdown
+   	5534	5548	lateralthreat
+   	5549	8130	base
+   	8131	8165	lateralthreat
+   	8166	8188	clinch
+   	8189	8200	lateralthreat
+   	8201	8218	clinch
+   	8219	8250	keepdown
+   	8251	8288	freezing
+   	8289	8307	keepdown
+   	8308	8330	clinch
+   	8331	8417	lateralthreat
+   	8418	8434	clinch
+   	8435	8498	keepdown
+   	8499	8697	base
+   	8698	8726	lateralthreat
+   	8727	8742	clinch
+   	8743	8795	lateralthreat
+   	8796	8806	uprightposture
+   	8807	8837	keepdown
+   	8838	8862	clinch
+   	8863	8890	lateralthreat
+   	8891	8925	clinch
+   	8926	8948	lateralthreat
+   	8949	8984	clinch
+   	8985	9010	lateralthreat
+   	9011	9022	clinch
+   	9023	9067	keepdown
+   	9068	9087	lateralthreat
+   	9088	9177	base
+   	9178	9206	lateralthreat
+   	9207	9341	keepdown
+   	9342	9372	lateralthreat
+   	9373	9414	base
+   	9415	9431	lateralthreat
+   	9432	9458	clinch
+   	9459	9489	lateralthreat
+   	9490	10941	base
+   	10942	10970	lateralthreat
+   	10971	10976	uprightposture
+   	10977	10982	clinch
+   	10983	11011	lateralthreat
+   	11012	11037	clinch
+   	11038	11086	keepdown
+   	11087	11092	freezing
+   	11093	11109	lateralthreat
+   	11110	12187	base
+   	12188	12191	lateralthreat
+   	12192	12204	clinch
+   	12205	12268	lateralthreat
+   	12269	12282	clinch
+   	12283	12360	keepdown
+   	12361	12382	lateralthreat
+   	12383	13005	base
+   	13006	13031	chase
+   	13032	13038	lateralthreat
+   	13039	13057	clinch
+   	13058	13086	keepdown
+   	13087	13112	freezing
+   	13113	13168	lateralthreat
+   	13169	14303	base
+  
