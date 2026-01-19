@@ -1,6 +1,6 @@
-# Mouse Behavior Classification
+# Rat Behavior Classification
 
-小鼠社交行为分类项目 - 基于DeepLabCut追踪数据和Caltech Behavior Annotator标注
+A project focus on rat social behavior classification based on data track using DeepLabCut and Caltech Behavior Annotator labeling
 
 - 📹 Video: https://youtu.be/oTXjbmTi8IQ
 - 📊 Dataset DOI: https://doi.org/10.6084/m9.figshare.30393298
@@ -8,170 +8,170 @@
 
 ---
 
-## 项目结构 (Project Structure)
+## Project Structure
 
 ```
 Mouse-Behavior-Classifier-Train/
-├── README.md                           # 项目文档
-├── data/                               # 数据目录
-│   ├── dlc_csv/                        # DeepLabCut追踪CSV文件 (58个视频)
-│   │   └── *DLC_*.csv                  # 多动物追踪结果
-│   ├── annotations/                    # Caltech Behavior Annotator标注文件 (58个)
-│   │   └── *_annot.txt                 # 行为标注文件
-│   ├── dataset58/                      # 预处理后的数据集
-│   │   ├── feature8_58.xlsx            # 8特征矩阵 (用于8feature_src)
-│   │   ├── feature_21.xlsx             # 21特征矩阵
-│   │   ├── merged_labels.xlsx          # Behavior标签 (3分类)
-│   │   └── labels_aggression.xlsx      # Aggression标签 (7分类)
-│   └── processed/                      # 中间处理结果
+├── README.md                           
+├── data/                               
+│   ├── dlc_csv/                        
+│   │   └── *DLC_*.csv                  
+│   ├── annotations/                    
+│   │   └── *_annot.txt                 
+│   ├── dataset58/                      
+│   │   ├── feature8_58.xlsx            
+│   │   ├── feature_21.xlsx             
+│   │   ├── merged_labels.xlsx          
+│   │   └── labels_aggression.xlsx      
+│   └── processed/                      
 │
-├── src/                                # 源代码目录
-│   ├── __init__.py                     # 包初始化
-│   ├── label_parser.py                 # 标签解析器 (解析Caltech标注)
-│   ├── feature_extraction.py           # 特征提取器 (从DLC提取26特征)
-│   ├── data_loader.py                  # 数据加载器 (整合特征和标签)
-│   ├── models.py                       # 模型定义 (MLP/LSTM/CNN/Transformer等)
-│   ├── mouse_behavior_classification.ipynb  # 26特征实验主Notebook
+├── src/                                
+│   ├── __init__.py                     
+│   ├── label_parser.py                 
+│   ├── feature_extraction.py           
+│   ├── data_loader.py                  
+│   ├── models.py                       
+│   ├── mouse_behavior_classification.ipynb  
 │   │
-│   └── 8feature_src/                   # 8特征模型训练代码
-│       ├── kaggle_model_comparison.ipynb   # 8特征模型对比实验Notebook
-│       ├── CNN.py                      # CNN模型
-│       ├── LSTM.py                     # LSTM模型
-│       ├── GMM.py                      # GMM模型
-│       ├── HMM.py                      # HMM模型
-│       ├── LightGBM.py                 # LightGBM模型
-│       ├── XGBoost.py                  # XGBoost模型
-│       ├── RandomForest.py             # RandomForest模型
-│       ├── SVM.py                      # SVM模型
-│       ├── data_load.py                # 数据加载工具
-│       ├── data_solver.py              # 数据处理工具
-│       ├── config.py                   # 配置文件
-│       └── model_comparison_*.py       # 模型对比脚本
+│   └── 8feature_src/                   
+│       ├── kaggle_model_comparison.ipynb   
+│       ├── CNN.py                      
+│       ├── LSTM.py                     
+│       ├── GMM.py                      
+│       ├── HMM.py                      
+│       ├── LightGBM.py                 
+│       ├── XGBoost.py                  
+│       ├── RandomForest.py             
+│       ├── SVM.py                      
+│       ├── data_load.py                
+│       ├── data_solver.py              
+│       ├── config.py                   
+│       └── model_comparison_*.py       
 │
-└── visualization/                      # 可视化输出
-    └── visualization_*.html            # 交互式可视化结果
+└── visualization/                      
+    └── visualization_*.html            
 ```
 
 ---
 
-## 数据流水线 (Data Pipeline)
+## Data Pipeline
 
 ### Overview
 
-![Data Pipeline](graph/data_pipeline.pdf)
+![Data Pipeline](graph/data_pipeline_01.png)
 
-### 两种特征模式
+### Two Feature Mode
 
-| 模式 | 特征数 | 代码位置 | 数据文件 | 说明 |
+| Mode | Feature Num | Code | Data Files | Note |
 |------|--------|----------|----------|------|
-| **26-feature** | 26 | `src/` | 从DLC实时提取 | 完整特征，从原始DLC CSV提取 |
-| **8-feature** | 8 | `src/8feature_src/` | `dataset58/feature8_58.xlsx` | 精简特征，预处理好的Excel |
+| **26-feature** | 26 | `src/` | Extracted from DLC in real-time | Full features, extracted from raw DLC CSV |
+| **8-feature** | 8 | `src/8feature_src/` | `dataset58/feature8_58.xlsx` | Simplified features, pre-processed Excel |
 
 ---
 
-## 实验说明 (Experiments)
+## Experiments
 
-### S1: Behavior 实验 (3分类)
-从S1标注中提取，排除base类别：
+### S1: Behavior Experiment (3-class)
+Extracted from S1 annotations, excluding base class:
 
-| 类别ID | 名称 | 说明 |
+| Class ID | Name | Description |
 |--------|------|------|
-| 0 | aggression | 攻击行为 |
-| 1 | social | 社交行为 |
-| 2 | nonsocial | 非社交行为 |
+| 0 | aggression | Aggressive behavior |
+| 1 | social | Social behavior |
+| 2 | nonsocial | Non-social behavior |
 
-### S2: Aggression 实验 (7分类)
-从S2标注中提取，排除base类别：
+### S2: Aggression Experiment (7-class)
+Extracted from S2 annotations, excluding base class:
 
-| 类别ID | 英文名 | 中文名 | 说明 |
-|--------|--------|--------|------|
-| 0 | lateralthreat | 侧向威胁 | 侧身展示威胁姿态 |
-| 1 | keepdown | 压制 | 将对方压在身下 |
-| 2 | clinch | 缠斗 | 激烈的肢体缠斗 |
-| 3 | uprightposture | 直立姿态 | 直立对峙姿势 |
-| 4 | freezing | 僵住 | 静止不动 |
-| 5 | bite | 撕咬 | 咬攻击 |
-| 6 | chase | 追逐 | 追赶对方 |
+| Class ID | Name | Description |
+|--------|--------|------|
+| 0 | lateralthreat | Lateral threat posture display |
+| 1 | keepdown | Pinning opponent down |
+| 2 | clinch | Intense physical grappling |
+| 3 | uprightposture | Upright confrontation posture |
+| 4 | freezing | Motionless state |
+| 5 | bite | Biting attack |
+| 6 | chase | Chasing opponent |
 
 ---
 
-## 特征说明 (Features)
+## Features
 
-### 26特征 (从DLC提取)
+### 26 Features (Extracted from DLC)
 
-从DLC多动物追踪结果中提取26个特征：
+26 features extracted from DLC multi-animal tracking results:
 
-| 类别 | 数量 | 特征名 |
+| Category | Count | Feature Names |
 |------|------|--------|
-| 速度特征 | 4 | top1_speed, top2_speed, body1_speed, body2_speed |
-| 距离特征 | 4 | top_distance, body_distance, top1_tail2_distance, top2_tail1_distance |
-| 角度特征 | 2 | angle_top1_tail1, angle_top2_tail2 |
-| 坐标特征 | 12 | 两只小鼠各3个主要身体部位(top, body, tail)的x,y坐标 |
-| 交互特征 | 4 | relative_angle, speed_ratio, approach_speed, body_speed_diff |
+| Speed Features | 4 | top1_speed, top2_speed, body1_speed, body2_speed |
+| Distance Features | 4 | top_distance, body_distance, top1_tail2_distance, top2_tail1_distance |
+| Angle Features | 2 | angle_top1_tail1, angle_top2_tail2 |
+| Coordinate Features | 12 | x,y coordinates of 3 main body parts (top, body, tail) for each of 2 mice |
+| Interaction Features | 4 | relative_angle, speed_ratio, approach_speed, body_speed_diff |
 
-### 8特征 (精简版)
+### 8 Features (Simplified Version)
 
-预提取的8个核心特征，用于快速实验：
-- 距离特征 (身体部位间距离)
-- 速度特征 (运动速度)
-- 角度特征 (相对角度)
+8 pre-extracted core features for rapid experimentation:
+- Distance features (distances between body parts)
+- Speed features (movement velocity)
+- Angle features (relative angles)
 
 ---
 
-## 模型 (Models)
+## Models
 
-支持8种模型：
+8 supported models:
 
-| 模型 | 类别 | 特点 |
+| Model | Category | Characteristics |
 |------|------|------|
-| **MLP** | 深度学习 | 多层感知机，简单高效 |
-| **LSTM** | 深度学习 | 双向长短期记忆网络，捕捉时序依赖 |
-| **CNN** | 深度学习 | 1D卷积神经网络，提取局部特征 |
-| **Transformer** | 深度学习 | 注意力机制，全局建模 |
-| **LightGBM** | 集成学习 | 梯度提升树，快速高效 |
-| **XGBoost** | 集成学习 | 极端梯度提升，鲁棒性强 |
-| **RandomForest** | 集成学习 | 随机森林，防过拟合 |
-| **SVM** | 传统ML | 支持向量机，适合小样本 |
-| **GMM** | 概率模型 | 高斯混合模型，生成式 |
-| **HMM** | 概率模型 | 隐马尔可夫模型，序列建模 |
+| **MLP** | Deep Learning | Multi-layer perceptron, simple and efficient |
+| **LSTM** | Deep Learning | Bidirectional LSTM, captures temporal dependencies |
+| **CNN** | Deep Learning | 1D CNN, extracts local features |
+| **Transformer** | Deep Learning | Attention mechanism, global modeling |
+| **LightGBM** | Ensemble Learning | Gradient boosting tree, fast and efficient |
+| **XGBoost** | Ensemble Learning | Extreme gradient boosting, robust |
+| **RandomForest** | Ensemble Learning | Random forest, prevents overfitting |
+| **SVM** | Traditional ML | Support vector machine, suitable for small samples |
+| **GMM** | Probabilistic Model | Gaussian mixture model, generative |
+| **HMM** | Probabilistic Model | Hidden Markov model, sequence modeling |
 
 ---
 
-## 工作流程 (Step-by-Step Workflow)
+## Step-by-Step Workflow
 
-### 方式一: 26特征实验 (完整流程)
+### Method 1: 26-Feature Experiment (Full Pipeline)
 
-使用 `src/mouse_behavior_classification.ipynb`
+Using `src/mouse_behavior_classification.ipynb`
 
 ```
-Step 1: 环境设置
-├── 安装依赖 (torch, lightgbm, xgboost, scikit-learn等)
-└── 导入模块 (label_parser, feature_extraction, data_loader, models)
+Step 1: Environment Setup
+├── Install dependencies (torch, lightgbm, xgboost, scikit-learn, etc.)
+└── Import modules (label_parser, feature_extraction, data_loader, models)
 
-Step 2: 实验配置
-├── 选择实验类型: EXPERIMENT = "behavior" 或 "aggression"
-├── 设置数据路径: CSV_FOLDER, ANNOT_FOLDER
-└── 设置训练参数: N_RUNS, N_EPOCHS, BATCH_SIZE
+Step 2: Experiment Configuration
+├── Select experiment type: EXPERIMENT = "behavior" or "aggression"
+├── Set data paths: CSV_FOLDER, ANNOT_FOLDER
+└── Set training parameters: N_RUNS, N_EPOCHS, BATCH_SIZE
 
-Step 3: 数据加载与预处理
-├── prepare_dataset() 加载数据
-│   ├── 从DLC CSV提取26个特征 (feature_extraction.py)
-│   ├── 解析标注文件 (label_parser.py)
-│   └── 对齐特征和标签，过滤无效样本
-├── 可视化类别分布
-└── 创建DataLoader (train/val/test split)
+Step 3: Data Loading and Preprocessing
+├── prepare_dataset() loads data
+│   ├── Extract 26 features from DLC CSV (feature_extraction.py)
+│   ├── Parse annotation files (label_parser.py)
+│   └── Align features and labels, filter invalid samples
+├── Visualize class distribution
+└── Create DataLoader (train/val/test split)
 
-Step 4: 模型训练
-├── 定义训练函数 train_pytorch_model()
-├── 遍历多个模型 (MLP, LSTM, CNN, Transformer, LightGBM等)
-├── 每个模型运行N_RUNS次 (不同随机种子)
-└── 计算accuracy, weighted_f1, macro_f1
+Step 4: Model Training
+├── Define training function train_pytorch_model()
+├── Iterate through multiple models (MLP, LSTM, CNN, Transformer, LightGBM, etc.)
+├── Run each model N_RUNS times (different random seeds)
+└── Compute accuracy, weighted_f1, macro_f1
 
-Step 5: 结果可视化
-├── 生成模型对比图 (with error bars)
-├── 生成Per-Class F1图
-├── 生成混淆矩阵
-└── 保存统计表格
+Step 5: Results Visualization
+├── Generate model comparison plots (with error bars)
+├── Generate Per-Class F1 plots
+├── Generate confusion matrices
+└── Save statistics tables
 ```
 
 **代码示例:**
@@ -194,82 +194,82 @@ model = get_pytorch_model('mlp', n_features=26, n_classes=7)
 
 ---
 
-### 方式二: 8特征实验 (快速实验)
+### Method 2: 8-Feature Experiment (Rapid Experimentation)
 
-使用 `src/8feature_src/kaggle_model_comparison.ipynb`
+Using `src/8feature_src/kaggle_model_comparison.ipynb`
 
 ```
-Step 1: 环境设置
-├── 安装依赖包
-├── 设置LOKY_MAX_CPU_COUNT (Windows兼容)
-└── 检查CUDA可用性
+Step 1: Environment Setup
+├── Install dependencies
+├── Set LOKY_MAX_CPU_COUNT (Windows compatibility)
+└── Check CUDA availability
 
-Step 2: 数据加载
-├── 加载特征文件: feature8_58.xlsx
-├── 加载标签文件: merged_labels_aggression.xlsx
-└── 对齐长度，检查类别分布
+Step 2: Data Loading
+├── Load feature file: feature8_58.xlsx
+├── Load label file: merged_labels_aggression.xlsx
+└── Align lengths, check class distribution
 
-Step 3: 数据过滤与映射
-├── EXPERIMENT_MODE = "behavior" 或 "aggression"
-├── 移除class 0 (base类)
-├── 重映射标签到连续范围 [0, n_classes-1]
-└── 打印类别映射表
+Step 3: Data Filtering and Mapping
+├── EXPERIMENT_MODE = "behavior" or "aggression"
+├── Remove class 0 (base class)
+├── Remap labels to continuous range [0, n_classes-1]
+└── Print class mapping table
 
-Step 4: 模型定义
-├── PyTorch模型: BehaviorLSTM, BehaviorCNN
-├── 传统ML模型: run_gmm_experiment, run_lightgbm_experiment, ...
-└── 定义compute_metrics()计算评估指标
+Step 4: Model Definition
+├── PyTorch models: BehaviorLSTM, BehaviorCNN
+├── Traditional ML models: run_gmm_experiment, run_lightgbm_experiment, ...
+└── Define compute_metrics() for evaluation metrics
 
-Step 5: 多次运行实验
-├── run_multiple_experiments() 运行5次
-├── 每次使用不同的split_seed
-├── 收集accuracy, weighted_f1, macro_f1
-└── 计算mean ± std
+Step 5: Multiple Run Experiments
+├── run_multiple_experiments() runs 5 times
+├── Each run uses different split_seed
+├── Collect accuracy, weighted_f1, macro_f1
+└── Compute mean ± std
 
-Step 6: 可视化与统计
-├── create_comparison_graphs() 生成4张对比图
-│   ├── overall.png: 总体性能对比
+Step 6: Visualization and Statistics
+├── create_comparison_graphs() generates 4 comparison plots
+│   ├── overall.png: Overall performance comparison
 │   ├── per_class.png: Per-Class F1
-│   ├── best_worst.png: 最佳/最差类别对比
-│   └── stability.png: 稳定性(变异系数)
-└── create_detailed_statistics_table() 打印详细统计表
+│   ├── best_worst.png: Best/Worst class comparison
+│   └── stability.png: Stability (coefficient of variation)
+└── create_detailed_statistics_table() prints detailed statistics
 ```
 
 ---
 
-## 安装与运行 (Installation & Usage)
+## Installation & Usage
 
-### 1. 安装依赖
+### 1. Install Dependencies
 ```bash
 pip install torch lightgbm xgboost scikit-learn pandas numpy matplotlib seaborn hmmlearn openpyxl
 ```
 
-### 2. 准备数据
-将DLC CSV文件放入 `data/dlc_csv/`，标注文件放入 `data/annotations/`
+### 2. Prepare Data
+Place DLC CSV files in `data/dlc_csv/` and annotation files in `data/annotations/`
 
-或者下载预处理数据集放入 `data/dataset58/`
+Or download the pre-processed dataset into `data/dataset58/`
 
-### 3. 运行实验
+### 3. Run Experiments
 
-**26特征实验:**
+**26-Feature Experiment:**
 ```bash
-# 在Jupyter中运行
+# Run in Jupyter
 jupyter notebook src/mouse_behavior_classification.ipynb
 ```
 
-**8特征实验:**
+**8-Feature Experiment:**
 ```bash
-# 在Jupyter/Kaggle中运行
+# Run in Jupyter/Kaggle
 jupyter notebook src/8feature_src/kaggle_model_comparison.ipynb
 
-# 或运行Python脚本
+# Or run Python script
 cd src/8feature_src
 python model_comparison_8models.py
 ```
 
-### 4. Kaggle使用
+### 4. Kaggle Usage
 
-修改notebook中的数据路径：
+Modify data paths in the notebook:
 ```python
 # 8特征实验
 feature_file = "/kaggle/input/mouse-behavior/dataset58/feature8_58.xlsx"
@@ -282,7 +282,7 @@ ANNOT_FOLDER = "/kaggle/input/mouse-behavior/annotations"
 
 ---
 
-## 标注文件格式 (Annotation Format)
+## Annotation Format
 
 ```
 Caltech Behavior Annotator - Annotation File
@@ -308,19 +308,19 @@ S2:	start	end	type
 
 ---
 
-## 输出结果 (Outputs)
+## Outputs
 
-### 模型检查点
-- PyTorch模型: `*.pth`
+### Model Checkpoints
+- PyTorch models: `*.pth`
 - LightGBM: `*.pkl` (model + scaler)
 
-### 可视化图表
+### Visualization Charts
 - `model_comparison_overall.png` - 总体性能对比
 - `model_comparison_per_class.png` - Per-Class F1
 - `model_comparison_best_worst.png` - 最佳/最差类别
 - `model_comparison_stability.png` - 稳定性分析
 
-### 统计表格
+### Statistics Tables
 ```
 DETAILED STATISTICS TABLE (5 runs, mean ± std)
 ================================================================================
@@ -335,24 +335,24 @@ LightGBM     0.6123±0.0145    0.6012±0.0167    0.5789±0.0189    ...
 
 ---
 
-## 可复现性 (Reproducibility)
+## Reproducibility
 
-- 每次实验运行5次，使用不同随机种子 (42, 43, 44, 45, 46)
-- 使用分层抽样 (stratified split) 保持类别比例
-- 标准化仅在训练集上fit，避免数据泄露
-- Error bars表示标准差 (ddof=1)
+- Each experiment runs 5 times with different random seeds (42, 43, 44, 45, 46)
+- Stratified split is used to maintain class proportions
+- Standardization is fit only on training set to avoid data leakage
+- Error bars represent standard deviation (ddof=1)
 
 ---
 
-## 许可证 (License)
+## License
 
 MIT License
 
 ---
 
-## 引用 (Citation)
+## Citation
 
-如果使用本代码或数据集，请引用：
+If you use this code or dataset, please cite:
 
 ```bibtex
 @misc{mouse_behavior_classification,
