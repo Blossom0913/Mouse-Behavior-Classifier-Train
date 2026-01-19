@@ -367,15 +367,12 @@ If you use this code or dataset, please cite:
 Dataset DOI: https://doi.org/10.6084/m9.figshare.30393298
 
 - Dataset: [https://doi.org/10.6084/m9.figshare.30393298](https://doi.org/10.6084/m9.figshare.30393298.v2)
-- Code: add your preferred software citation (e.g., Zenodo DOI if archived)
+- Code: [https://doi.org/10.5281/zenodo.18298715](https://doi.org/10.5281/zenodo.18298715)
 
 Example citation format:
 
 ```
-Author(s). DeepLabVideo: Mouse Behavior Classification (Version YYYY.MM). Repository name. URL
+Author(s). DeepLabVideo: Mouse Behavior Classification (Version 2026.01).
 Dataset: Figshare. DOI: 10.6084/m9.figshare.30393298
 ```
 
-## License
-
-Specify your license here (e.g., MIT). If none is provided, all rights reserved by default.
