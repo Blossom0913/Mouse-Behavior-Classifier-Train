@@ -23,8 +23,8 @@ class DLCFeatureExtractor:
         self.smooth_sigma = smooth_sigma
         self.likelihood_threshold = likelihood_threshold
         
-        # 身体部位索引 (每个个体5个部位)
-        self.bodyparts = ['top', 'body', 'tail', 'tail-m', 'tail-e']
+        # 身体部位索引 (每个个体3个部位)
+        self.bodyparts = ['top', 'body', 'tail']
     
     def load_dlc_csv(self, csv_path):
         """
@@ -34,8 +34,8 @@ class DLCFeatureExtractor:
             csv_path: CSV文件路径
             
         Returns:
-            coords: (n_frames, 2, 5, 2) 坐标数组 [frames, individuals, bodyparts, xy]
-            likelihood: (n_frames, 2, 5) 置信度数组
+            coords: (n_frames, 2, n_bps, 2) 坐标数组 [frames, individuals, bodyparts, xy]
+            likelihood: (n_frames, 2, n_bps) 置信度数组
             n_frames: 帧数
         """
         # 读取多层表头 (scorer, individuals, bodyparts, coords)
@@ -45,14 +45,29 @@ class DLCFeatureExtractor:
         data = df.values.astype(np.float32)
         n_frames = len(data)
         
-        # 重塑为 (n_frames, 2 individuals, 5 bodyparts, 3 coords)
-        # 3 = [x, y, likelihood]
-        reshaped = data.reshape(n_frames, 2, 5, 3)
+        # 计算身体部位数量
+        # 列数 = 2 individuals * n_bodyparts * 3 coords
+        n_cols = data.shape[1]
+        n_bps_in_file = n_cols // (2 * 3)
+        
+        # 重塑为 (n_frames, 2 individuals, n_bps, 3 coords)
+        reshaped = data.reshape(n_frames, 2, n_bps_in_file, 3)
         
         # 分离坐标和置信度
-        coords = reshaped[:, :, :, :2]       # (n_frames, 2, 5, 2)
-        likelihood = reshaped[:, :, :, 2]    # (n_frames, 2, 5)
+        coords_all = reshaped[:, :, :, :2]       # (n_frames, 2, n_bps, 2)
+        likelihood_all = reshaped[:, :, :, 2]    # (n_frames, 2, n_bps)
         
+        # 如果文件中有5个部位，只取前3个 (top, body, tail)
+        # 假设顺序是 top, body, tail, tail-m, tail-e
+        if n_bps_in_file >= 3:
+             # 只保留前3个
+             coords = coords_all[:, :, :3, :]
+             likelihood = likelihood_all[:, :, :3]
+        else:
+             # 少于3个不应该发生，或者直接使用
+             coords = coords_all
+             likelihood = likelihood_all
+             
         return coords, likelihood, n_frames
     
     def preprocess_coords(self, coords, likelihood):
@@ -67,9 +82,10 @@ class DLCFeatureExtractor:
             coords_clean: 处理后的坐标数组
         """
         coords_clean = coords.copy()
+        n_bps = coords.shape[2]
         
         for ind in range(2):  # 2个个体
-            for bp in range(5):  # 5个身体部位
+            for bp in range(n_bps):  # 3个身体部位
                 mask = likelihood[:, ind, bp] < self.likelihood_threshold
                 if mask.any():
                     # 线性插值
@@ -139,15 +155,11 @@ class DLCFeatureExtractor:
         top1 = coords[:, 0, 0, :]      # (n_frames, 2)
         body1 = coords[:, 0, 1, :]
         tail1 = coords[:, 0, 2, :]
-        tail_m1 = coords[:, 0, 3, :]
-        tail_e1 = coords[:, 0, 4, :]
         
         # Individual 2
         top2 = coords[:, 1, 0, :]
         body2 = coords[:, 1, 1, :]
         tail2 = coords[:, 1, 2, :]
-        tail_m2 = coords[:, 1, 3, :]
-        tail_e2 = coords[:, 1, 4, :]
         
         features = {}
         
@@ -164,10 +176,11 @@ class DLCFeatureExtractor:
         features['top2_tail1_distance'] = self.compute_distance(top2, tail1)
         
         # ============== 角度特征 (2个) ==============
-        features['angle_top1_tail1'] = self.compute_angle(top1, tail_e1)
-        features['angle_top2_tail2'] = self.compute_angle(top2, tail_e2)
+        # 使用头部到尾巴根部的向量作为身体朝向
+        features['angle_top1_tail1'] = self.compute_angle(top1, tail1)
+        features['angle_top2_tail2'] = self.compute_angle(top2, tail2)
         
-        # ============== 原始坐标特征 (20个) ==============
+        # ============== 原始坐标特征 (12个) ==============
         # Individual 1
         features['top1_x'] = top1[:, 0]
         features['top1_y'] = top1[:, 1]
@@ -175,10 +188,6 @@ class DLCFeatureExtractor:
         features['body1_y'] = body1[:, 1]
         features['tail1_x'] = tail1[:, 0]
         features['tail1_y'] = tail1[:, 1]
-        features['tail_mid1_x'] = tail_m1[:, 0]
-        features['tail_mid1_y'] = tail_m1[:, 1]
-        features['tail_end1_x'] = tail_e1[:, 0]
-        features['tail_end1_y'] = tail_e1[:, 1]
         
         # Individual 2
         features['top2_x'] = top2[:, 0]
@@ -187,10 +196,6 @@ class DLCFeatureExtractor:
         features['body2_y'] = body2[:, 1]
         features['tail2_x'] = tail2[:, 0]
         features['tail2_y'] = tail2[:, 1]
-        features['tail_mid2_x'] = tail_m2[:, 0]
-        features['tail_mid2_y'] = tail_m2[:, 1]
-        features['tail_end2_x'] = tail_e2[:, 0]
-        features['tail_end2_y'] = tail_e2[:, 1]
         
         # ============== 交互特征 (4个) ==============
         features['relative_angle'] = features['angle_top1_tail1'] - features['angle_top2_tail2']
@@ -271,10 +276,8 @@ def get_feature_names():
         'angle_top1_tail1', 'angle_top2_tail2',
         # 坐标特征 - Individual 1
         'top1_x', 'top1_y', 'body1_x', 'body1_y', 'tail1_x', 'tail1_y',
-        'tail_mid1_x', 'tail_mid1_y', 'tail_end1_x', 'tail_end1_y',
         # 坐标特征 - Individual 2
         'top2_x', 'top2_y', 'body2_x', 'body2_y', 'tail2_x', 'tail2_y',
-        'tail_mid2_x', 'tail_mid2_y', 'tail_end2_x', 'tail_end2_y',
         # 交互特征
         'relative_angle', 'speed_ratio', 'approach_speed', 'body_speed_diff'
     ]
@@ -289,6 +292,6 @@ if __name__ == "__main__":
     print("  - Speed features: 4")
     print("  - Distance features: 4")
     print("  - Angle features: 2")
-    print("  - Coordinate features: 20")
+    print("  - Coordinate features: 12")
     print("  - Interaction features: 4")
     print("\n✓ Feature extraction module ready!")
