@@ -22,8 +22,8 @@ from .models import (
     compute_class_weights
 )
 
-__version__ = '1.0.1'
-__author__ = 'Mouse Behavior Lab'
+__version__ = '1.1.0'
+__author__ = 'Chen Xutian'
 
 __all__ = [
     # Label Parser
