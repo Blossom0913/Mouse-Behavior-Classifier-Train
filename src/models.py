@@ -319,6 +319,77 @@ def compute_class_weights(y_train, n_classes):
     return torch.FloatTensor(weights)
 
 
+# =============================================================================
+# Checkpoint Utilities
+# =============================================================================
+
+def save_checkpoint(path, model, optimizer=None, epoch=None, seed=None, model_type=None, extra: dict | None = None):
+    """保存训练检查点。
+    包含模型参数、可选的优化器状态以及元信息（epoch/seed/model_type）。
+
+    Args:
+        path: 保存路径（.pth 文件）
+        model: PyTorch 模型
+        optimizer: 可选，优化器实例
+        epoch: 可选，当前训练到的 epoch（int）
+        seed: 可选，训练使用的随机种子
+        model_type: 可选，模型类型标识（'cnn'、'lstm' 等）
+        extra: 可选，附加字典信息（例如数据分割配置等）
+    """
+    state = {
+        'state_dict': model.state_dict(),
+    }
+    if optimizer is not None:
+        state['optimizer_state_dict'] = optimizer.state_dict()
+    if epoch is not None:
+        state['epoch'] = int(epoch)
+    if seed is not None:
+        state['seed'] = int(seed)
+    if model_type is not None:
+        state['model_type'] = str(model_type)
+    if extra:
+        state['extra'] = extra
+
+    torch.save(state, path)
+
+
+def load_checkpoint(path, model, optimizer=None, map_location=None):
+    """加载训练检查点。
+
+    Args:
+        path: 检查点路径
+        model: PyTorch 模型，用于加载 state_dict
+        optimizer: 可选，优化器；若提供且检查点包含优化器状态，则一并恢复
+        map_location: 设备映射
+
+    Returns:
+        info: dict，包含 'epoch'（若存在）、'seed'、'model_type' 等元信息
+    """
+    ckpt = torch.load(path, map_location=map_location)
+    model.load_state_dict(ckpt.get('state_dict', ckpt))
+
+    if optimizer is not None and 'optimizer_state_dict' in ckpt:
+        try:
+            optimizer.load_state_dict(ckpt['optimizer_state_dict'])
+        except Exception:
+            pass  # 若不匹配则忽略优化器恢复
+
+    return {
+        'epoch': ckpt.get('epoch'),
+        'seed': ckpt.get('seed'),
+        'model_type': ckpt.get('model_type'),
+        'extra': ckpt.get('extra')
+    }
+
+
+def find_checkpoint(checkpoints_dir, model_type, seed):
+    """按约定命名查找检查点文件：{model_type}_seed{seed}.pth"""
+    import os
+    filename = f"{model_type}_seed{seed}.pth"
+    path = os.path.join(checkpoints_dir, filename)
+    return path if os.path.isfile(path) else None
+
+
 # ============== 测试代码 ==============
 if __name__ == "__main__":
     print("Model Definitions Module")
