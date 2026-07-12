@@ -341,6 +341,7 @@ LightGBM     0.6123±0.0145    0.6012±0.0167    0.5789±0.0189    ...
 - Stratified split is used to maintain class proportions
 - Standardization is fit only on training set to avoid data leakage
 - Error bars represent standard deviation (ddof=1)
+- To ensure full reproducibility, this repository includes the exact DeepLabCut configuration files, detailed software versions used in our pipeline (DeepLabCut 3.0.0rc14, Python 3.10.20, PyTorch 2.11.0, scikit-learn 1.7.2, NumPy 2.2.6, Pandas 2.3.3, SciPy 1.15.3), the complete set of inference scripts used to generate pose trajectories, and the preprocessing scripts required for feature extraction.
 
 ---
 
@@ -375,4 +376,3 @@ Example citation format:
 Author(s). DeepLabVideo: Mouse Behavior Classification (Version 2026.01).
 Dataset: Figshare. DOI: 10.6084/m9.figshare.30393298
 ```
-
