@@ -163,6 +163,49 @@
 
 <section class="section">
   <div class="container is-max-desktop">
+    <h2 class="title is-3">Pose Tracking &amp; Keypoint Definition</h2>
+    <div class="content has-text-justified">
+      <p>
+        Each rat is tracked with 5 DeepLabCut keypoints &mdash; head, body, tail, tail-m and tail-e &mdash;
+        under the resident-intruder paradigm. These keypoints are the basis for all speed, distance, angle and
+        coordinate features used in the benchmark.
+      </p>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <figure class="image-card">
+          <img src="./static/images/rat-figure.jpg" alt="DLC keypoint definition">
+          <figcaption>Keypoint definition (head &middot; body &middot; tail &middot; tail-m &middot; tail-e)</figcaption>
+        </figure>
+      </div>
+      <div class="column is-half">
+        <figure class="image-card">
+          <img src="./static/images/label-point.jpg" alt="Multi-animal pose tracking example">
+          <figcaption>Multi-animal tracking under the resident-intruder paradigm</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <h4 class="title is-5" style="margin-top: 2rem;">Behavior Labeling Example</h4>
+    <div class="content has-text-justified">
+      <p>
+        Example of frame-level behavior annotation using the Caltech Behavior Annotator, aligned with the tracked
+        keypoints above.
+      </p>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-three-fifths">
+        <video class="demo-video" controls muted loop playsinline>
+          <source src="./static/videos/behavior-label-example.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
     <h2 class="title is-3">Dataset &amp; Annotation Scheme</h2>
     <div class="content has-text-justified">
       <p>

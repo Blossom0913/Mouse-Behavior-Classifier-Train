@@ -1,4 +1,4 @@
-# Rat Behavior Classification
+# [2026' Scientific Data] A Benchmark Dataset for Rat Social and Aggressive Behavior Classification
 
 A project focus on rat social behavior classification based on data track using DeepLabCut and Caltech Behavior Annotator labeling
 
@@ -59,6 +59,27 @@ Mouse-Behavior-Classifier-Train/
 ### Overview
 
 ![Data Pipeline](graph/data_pipeline_01.png)
+
+### Pose Tracking & Keypoint Definition
+
+Each rat is tracked with 5 DeepLabCut keypoints (head, body, tail, tail-m, tail-e) to derive the speed, distance, angle and coordinate features described below.
+
+<table>
+<tr>
+<td width="50%"><img src="graph/rat-figure.jpg" alt="DLC keypoint definition"></td>
+<td width="50%"><img src="graph/label-point.jpg" alt="Multi-animal pose tracking example"></td>
+</tr>
+<tr>
+<td align="center"><em>Keypoint definition (head &middot; body &middot; tail &middot; tail-m &middot; tail-e)</em></td>
+<td align="center"><em>Multi-animal tracking under the resident-intruder paradigm</em></td>
+</tr>
+</table>
+
+### Behavior Labeling Example
+
+Example of frame-level behavior annotation using the Caltech Behavior Annotator, aligned with the tracked keypoints above:
+
+🎬 [`graph/behavior-label-example.mp4`](graph/behavior-label-example.mp4) &nbsp;|&nbsp; 📹 [Full YouTube demo](https://youtu.be/oTXjbmTi8IQ)
 
 ### Two Feature Mode
 

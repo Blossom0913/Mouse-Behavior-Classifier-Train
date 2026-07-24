@@ -76,6 +76,33 @@ body {
   height: 100%;
 }
 
+.image-card {
+  margin: 0;
+}
+
+.image-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  display: block;
+}
+
+.image-card figcaption {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 0.6rem;
+}
+
+.demo-video {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  display: block;
+  background-color: #000;
+}
+
 .section pre {
   background-color: #f5f5f5;
   border-radius: 6px;
