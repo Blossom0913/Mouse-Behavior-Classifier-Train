@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="A Benchmark Dataset for Rat Social and Aggressive Behavior Classification. A curated video dataset and reproducible pose-based benchmark for rat social-interaction analysis, published in Scientific Data.">
+  <meta name="keywords" content="rat behavior classification, social behavior, aggression, DeepLabCut, benchmark dataset, Scientific Data">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A Benchmark Dataset for Rat Social and Aggressive Behavior Classification</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <link rel="icon" href="./static/images/data_pipeline.png">
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">A Benchmark Dataset for Rat Social and Aggressive Behavior Classification</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://www.nature.com/articles/s41597-026-07888-8" target="_blank">Xutian Chen</a><sup>1,&#8224;</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.nature.com/articles/s41597-026-07888-8" target="_blank">Guangyu Li</a><sup>1,&#8224;</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.nature.com/articles/s41597-026-07888-8" target="_blank">Zihan Zhang</a><sup>2,&#8224;</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.nature.com/articles/s41597-026-07888-8" target="_blank">Mingkun Xu</a><sup>1,&#9993;</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.nature.com/articles/s41597-026-07888-8" target="_blank">Zuoren Wang</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.nature.com/articles/s41597-026-07888-8" target="_blank">Qianqian Shi</a><sup>3,&#9993;</sup>
+            </span>
+          </div>
+
+          <div class="is-size-6 publication-affiliations">
+            <span class="author-block"><sup>1</sup>Guangdong Institute of Intelligence Science and Technology, Zhuhai, 519031, China</span><br>
+            <span class="author-block"><sup>2</sup>Institute of Neuroscience, State Key Laboratory of Neuroscience, Center for Excellence in Brain Science and Intelligence Technology, Chinese Academy of Sciences, Shanghai, 200031, China</span><br>
+            <span class="author-block"><sup>3</sup>Center for Brain-Inspired Computing Research (CBICR), Department of Precision Instrument, Tsinghua University, Beijing, 100084, China</span>
+          </div>
+
+          <div class="is-size-6 publication-note">
+            <span class="author-block"><sup>&#8224;</sup>Equal contribution &nbsp;&nbsp;|&nbsp;&nbsp; <sup>&#9993;</sup>Corresponding author</span><br>
+            <span class="author-block">Scientific Data (Nature), 2026 &nbsp;&middot;&nbsp; Open Access &nbsp;&middot;&nbsp; Data Descriptor</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://doi.org/10.1038/s41597-026-07888-8" target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/Blossom0913/Mouse-Behavior-Classifier-Train" target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://doi.org/10.6084/m9.figshare.30393298" target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-database"></i></span>
+                  <span>Dataset</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://youtu.be/oTXjbmTi8IQ" target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-youtube"></i></span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#bibtex"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-quote-right"></i></span>
+                  <span>BibTeX</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/data_pipeline.png" alt="Data pipeline overview" style="width:100%; height:auto;">
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">Overview.</span> Raw DeepLabCut pose-tracking CSVs and Caltech Behavior Annotator labels
+        are converted into structured features and aligned labels for two benchmark tasks &mdash; coarse-grained
+        <strong>3-class social behavior</strong> classification and fine-grained <strong>7-class aggression</strong>
+        classification &mdash; which are then used to train and compare 8 representative machine learning and
+        deep learning models under a unified, stratified train/val/test protocol.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Social interactions are central to behavioral and systems neuroscience, yet progress in understanding
+            their neural basis depends on reliable and scalable behavioral quantification. However, standardized
+            datasets, transparent annotation schemes and reproducible benchmarks for social-behavior classification
+            remain limited. Here, we present a curated video dataset of rat social interactions recorded under the
+            resident-intruder paradigm. The dataset covers non-social, social and aggressive behaviors, with
+            aggression-related episodes further annotated into ethologically defined fine-grained subtypes. To
+            support automated analysis of these dynamic and contact-rich interactions, we provide a reproducible
+            pose-based workflow that converts DeepLabCut-derived body-part trajectories into structured features
+            describing individual movement and inter-animal spatial relationships. Using this feature
+            representation, we benchmark representative traditional machine learning and deep learning models
+            under a unified evaluation protocol. These benchmarks provide reference performance for both
+            coarse-grained social behavioral classification and fine-grained aggression-related behavior
+            recognition, while documenting differences in class-wise performance, training efficiency and model
+            complexity. Together, this dataset and workflow provide an open resource for developing, evaluating
+            and comparing automated methods for rat social-interaction analysis.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/oTXjbmTi8IQ"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <p class="is-size-6" style="margin-top: 1rem;">
+          Example recordings of rat social interaction under the resident-intruder paradigm, together with
+          DeepLabCut-based multi-animal pose tracking used to derive behavioral features.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Dataset &amp; Annotation Scheme</h2>
+    <div class="content has-text-justified">
+      <p>
+        Videos are annotated at two levels using the Caltech Behavior Annotator. <strong>S1 (behavior level)</strong>
+        labels each frame as <em>base</em>, <em>non-social</em>, <em>social</em> or <em>aggression</em>.
+        <strong>S2 (aggression level)</strong> further decomposes aggressive episodes into seven ethologically
+        defined fine-grained subtypes.
+      </p>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <h4 class="title is-5 has-text-centered">S1 &middot; Social Behavior (3-class)</h4>
+        <table class="table is-fullwidth is-striped is-hoverable">
+          <thead>
+            <tr><th>Class</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Aggression</td><td>Aggressive behavior</td></tr>
+            <tr><td>Social</td><td>Social behavior</td></tr>
+            <tr><td>Non-social</td><td>Non-social behavior</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="column">
+        <h4 class="title is-5 has-text-centered">S2 &middot; Aggression Subtype (7-class)</h4>
+        <table class="table is-fullwidth is-striped is-hoverable">
+          <thead>
+            <tr><th>Class</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Lateral threat</td><td>Lateral threat posture display</td></tr>
+            <tr><td>Keep down</td><td>Pinning opponent down</td></tr>
+            <tr><td>Clinch</td><td>Intense physical grappling</td></tr>
+            <tr><td>Upright posture</td><td>Upright confrontation posture</td></tr>
+            <tr><td>Freezing</td><td>Motionless state</td></tr>
+            <tr><td>Bite</td><td>Biting attack</td></tr>
+            <tr><td>Chase</td><td>Chasing opponent</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Feature Extraction &amp; Models</h2>
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content">
+          <p><strong>26 features</strong> extracted directly from DeepLabCut multi-animal tracking (real-time, full pipeline):</p>
+          <ul>
+            <li>Speed features (4): individual body-part velocities for both animals</li>
+            <li>Distance features (4): inter- and intra-animal body-part distances</li>
+            <li>Angle features (2): relative orientation angles</li>
+            <li>Coordinate features (12): x, y coordinates of 3 key body parts &times; 2 animals</li>
+            <li>Interaction features (4): relative angle, speed ratio, approach speed, body speed difference</li>
+          </ul>
+          <p><strong>8 features</strong>: a simplified, pre-processed feature set (distance / speed / angle) for rapid experimentation.</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="content">
+          <p>Benchmarked models spanning deep learning, ensemble learning, traditional ML and probabilistic models:</p>
+          <div class="tags">
+            <span class="tag is-medium is-info is-light">MLP</span>
+            <span class="tag is-medium is-info is-light">LSTM</span>
+            <span class="tag is-medium is-info is-light">CNN</span>
+            <span class="tag is-medium is-info is-light">Transformer</span>
+            <span class="tag is-medium is-success is-light">LightGBM</span>
+            <span class="tag is-medium is-success is-light">XGBoost</span>
+            <span class="tag is-medium is-success is-light">Random Forest</span>
+            <span class="tag is-medium is-warning is-light">SVM</span>
+            <span class="tag is-medium is-danger is-light">GMM</span>
+            <span class="tag is-medium is-danger is-light">HMM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Benchmark Results</h2>
+    <div class="content has-text-justified">
+      <p>
+        Under a unified, stratified train/val/test protocol (5 runs with different random seeds, mean &plusmn; std),
+        we report accuracy, weighted F1 and macro F1 for all models on both the coarse-grained social behavior task
+        and the fine-grained aggression subtype task. Explore the full interactive comparison &mdash; including
+        per-class F1 heatmaps, accuracy ranking, stability analysis and accuracy/F1 trade-off plots &mdash; below.
+      </p>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <div class="box has-text-centered">
+          <h4 class="title is-5">3-Class Social Behavior</h4>
+          <p class="mb-4">Non-social &middot; Social &middot; Aggression</p>
+          <a href="./visualization/visualization_behavior.html" target="_blank" class="button is-link is-rounded">
+            <span class="icon"><i class="fas fa-chart-line"></i></span>
+            <span>View interactive results</span>
+          </a>
+        </div>
+      </div>
+      <div class="column is-half">
+        <div class="box has-text-centered">
+          <h4 class="title is-5">7-Class Aggression Subtype</h4>
+          <p class="mb-4">Lateral threat &middot; Keep down &middot; Clinch &middot; Upright &middot; Freezing &middot; Bite &middot; Chase</p>
+          <a href="./visualization/visualization_aggression.html" target="_blank" class="button is-link is-rounded">
+            <span class="icon"><i class="fas fa-chart-line"></i></span>
+            <span>View interactive results</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">BibTeX</h2>
+    <pre><code>@article{chen2026ratbench,
+  title   = {A Benchmark Dataset for Rat Social and Aggressive Behavior Classification},
+  author  = {Chen, Xutian and Li, Guangyu and Zhang, Zihan and Xu, Mingkun and Wang, Zuoren and Shi, Qianqian},
+  journal = {Scientific Data},
+  year    = {2026},
+  doi     = {10.1038/s41597-026-07888-8}
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p>
+        <strong>Acknowledgements.</strong> We thank Boyi Liu for assistance with data collection. This work was
+        supported in part by the High-Level Talents Innovation Team Project of the Guangdong-Macao In-Depth
+        Cooperation Zone in Hengqin (Grant No. 2630004018939), and in part by the National Natural Science
+        Foundation of China (NSFC) (Grant No. 62506084).
+      </p>
+      <p>
+        Correspondence to
+        <a href="mailto:xumingkun@gdiist.cn">Mingkun Xu</a> or
+        <a href="mailto:qqshi@mail.tsinghua.edu.cn">Qianqian Shi</a>.
+      </p>
+      <p>
+        This dataset and code are licensed under a
+        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.
+      </p>
+      <p>
+        This website is built using the <a href="https://github.com/nerfies/nerfies.github.io" target="_blank">Nerfies project page template</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Behavior Classification - 8-Model Comparison (3-Class)</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: #fafafa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+        
+        .subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .chart-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+        
+        .chart-subtitle {
+            font-size: 12px;
+            color: #888;
+            margin-top: -15px;
+            margin-bottom: 20px;
+        }
+        
+        .axis text {
+            font-size: 11px;
+            fill: #555;
+        }
+        
+        .axis-label {
+            font-size: 12px;
+            fill: #333;
+            font-weight: 500;
+        }
+        
+        .grid line {
+            stroke: #e0e0e0;
+            stroke-dasharray: 2,2;
+        }
+        
+        .legend {
+            font-size: 11px;
+        }
+        
+        .legend-item {
+            cursor: pointer;
+        }
+        
+        .tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.85);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .tooltip .model-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .tooltip .metric-value {
+            color: #aaa;
+        }
+        
+        .tooltip .metric-value span {
+            color: white;
+            font-weight: 500;
+        }
+        
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-top: 20px;
+        }
+        
+        .stats-table th {
+            background: #f5f5f5;
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .stats-table td {
+            padding: 10px 16px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .stats-table tr:hover {
+            background: #fafafa;
+        }
+        
+        .stats-table .model-cell {
+            font-weight: 500;
+        }
+        
+        .stats-table .best-value {
+            background: #e8f5e9;
+            font-weight: 600;
+            color: #2e7d32;
+        }
+        
+        .row {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .col-half {
+            flex: 1;
+            min-width: 400px;
+        }
+        
+        .error-bar {
+            stroke-width: 1.5;
+        }
+        
+        .error-cap {
+            stroke-width: 1.5;
+        }
+        
+        .methodology-note {
+            background: #f0f7ff;
+            border-left: 4px solid #2196f3;
+            padding: 16px 20px;
+            margin-bottom: 30px;
+            font-size: 13px;
+            color: #1565c0;
+        }
+        
+        .methodology-note strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .category-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 500;
+            margin-left: 8px;
+        }
+        
+        .category-dl { background: #e3f2fd; color: #1565c0; }
+        .category-ensemble { background: #e8f5e9; color: #2e7d32; }
+        .category-probabilistic { background: #fff3e0; color: #ef6c00; }
+        .category-kernel { background: #fce4ec; color: #c2185b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mouse Behavior Classification: 8-Model Comparison</h1>
+        <p class="subtitle">3-Class Classification Task (Excluding Class 0) • 5 Independent Runs with Different Random Seeds</p>
+        
+        <div class="methodology-note">
+            <strong>Methodology</strong>
+            Stratified random splitting (70% train / 15% val / 15% test) with 5 different seeds (42-46). 
+            Error bars represent ±1 standard deviation. StandardScaler fitted on training set only to prevent data leakage.
+        </div>
+        
+        <!-- Chart 1: Overall Performance Comparison -->
+        <div class="chart-container">
+            <div class="chart-title">Figure 1. Overall Model Performance Comparison</div>
+            <div class="chart-subtitle">Accuracy, Weighted F1, and Macro F1 scores across 8 classification models</div>
+            <div id="chart-overall"></div>
+        </div>
+        
+        <div class="row">
+            <!-- Chart 2: Accuracy Ranking -->
+            <div class="col-half">
+                <div class="chart-container">
+                    <div class="chart-title">Figure 2. Accuracy Ranking</div>
+                    <div class="chart-subtitle">Models sorted by mean accuracy (5 runs)</div>
+                    <div id="chart-accuracy"></div>
+                </div>
+            </div>
+            
+            <!-- Chart 3: Stability Analysis -->
+            <div class="col-half">
+                <div class="chart-container">
+                    <div class="chart-title">Figure 3. Model Stability (CV%)</div>
+                    <div class="chart-subtitle">Coefficient of variation - lower indicates more stable</div>
+                    <div id="chart-stability"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Chart 4: Per-Class F1 Heatmap -->
+        <div class="chart-container">
+            <div class="chart-title">Figure 4. Per-Class F1 Score Heatmap</div>
+            <div class="chart-subtitle">F1 scores for each behavior class across all models</div>
+            <div id="chart-heatmap"></div>
+        </div>
+        
+        <!-- Statistics Table -->
+        <div class="chart-container">
+            <div class="chart-title">Table 1. Detailed Performance Metrics</div>
+            <div class="chart-subtitle">Mean ± standard deviation across 5 independent runs</div>
+            <div id="stats-table"></div>
+        </div>
+    </div>
+    
+    <div class="tooltip" id="tooltip" style="display: none;"></div>
+
+    <script>
+        // ============================================================
+        // DATA: 3-Class Behavior Classification Results
+        // ============================================================
+        const experimentData = {
+            models: ['GMM', 'LSTM', 'CNN', 'LightGBM', 'XGBoost', 'RandomForest', 'SVM', 'HMM'],
+            categories: {
+                'GMM': 'Probabilistic',
+                'LSTM': 'Deep Learning',
+                'CNN': 'Deep Learning',
+                'LightGBM': 'Ensemble',
+                'XGBoost': 'Ensemble',
+                'RandomForest': 'Ensemble',
+                'SVM': 'Kernel',
+                'HMM': 'Probabilistic'
+            },
+            metrics: {
+                accuracy: {
+                    'GMM':          { mean: 0.344, std: 0.052 },
+                    'LSTM':         { mean: 0.340, std: 0.016 },
+                    'CNN':          { mean: 0.398, std: 0.014 },
+                    'LightGBM':     { mean: 0.550, std: 0.001 },
+                    'XGBoost':      { mean: 0.568, std: 0.002 },
+                    'RandomForest': { mean: 0.403, std: 0.003 },
+                    'SVM':          { mean: 0.421, std: 0.007 },
+                    'HMM':          { mean: 0.308, std: 0.058 }
+                },
+                weighted_f1: {
+                    'GMM':          { mean: 0.364, std: 0.046 },
+                    'LSTM':         { mean: 0.366, std: 0.014 },
+                    'CNN':          { mean: 0.414, std: 0.013 },
+                    'LightGBM':     { mean: 0.521, std: 0.002 },
+                    'XGBoost':      { mean: 0.542, std: 0.002 },
+                    'RandomForest': { mean: 0.434, std: 0.002 },
+                    'SVM':          { mean: 0.442, std: 0.007 },
+                    'HMM':          { mean: 0.328, std: 0.054 }
+                },
+                macro_f1: {
+                    'GMM':          { mean: 0.340, std: 0.050 },
+                    'LSTM':         { mean: 0.350, std: 0.015 },
+                    'CNN':          { mean: 0.400, std: 0.014 },
+                    'LightGBM':     { mean: 0.480, std: 0.003 },
+                    'XGBoost':      { mean: 0.510, std: 0.003 },
+                    'RandomForest': { mean: 0.410, std: 0.003 },
+                    'SVM':          { mean: 0.420, std: 0.008 },
+                    'HMM':          { mean: 0.300, std: 0.055 }
+                }
+            },
+            perClassF1: {
+                'GMM':          [0.45, 0.32, 0.25],
+                'LSTM':         [0.42, 0.35, 0.28],
+                'CNN':          [0.48, 0.38, 0.34],
+                'LightGBM':     [0.62, 0.52, 0.40],
+                'XGBoost':      [0.65, 0.55, 0.43],
+                'RandomForest': [0.50, 0.42, 0.31],
+                'SVM':          [0.52, 0.44, 0.30],
+                'HMM':          [0.40, 0.30, 0.20]
+            }
+        };
+        
+        // Color schemes
+        const categoryColors = {
+            'Deep Learning': '#1976d2',
+            'Ensemble': '#388e3c',
+            'Probabilistic': '#f57c00',
+            'Kernel': '#c2185b'
+        };
+        
+        const metricColors = {
+            'accuracy': '#2196f3',
+            'weighted_f1': '#4caf50',
+            'macro_f1': '#ff9800'
+        };
+        
+        // Tooltip
+        const tooltip = d3.select('#tooltip');
+        
+        function showTooltip(event, html) {
+            tooltip.style('display', 'block')
+                   .html(html)
+                   .style('left', (event.pageX + 15) + 'px')
+                   .style('top', (event.pageY - 10) + 'px');
+        }
+        
+        function hideTooltip() {
+            tooltip.style('display', 'none');
+        }
+        
+        // ============================================================
+        // Chart 1: Overall Performance (Grouped Bar Chart)
+        // ============================================================
+        function createOverallChart() {
+            const margin = { top: 40, right: 150, bottom: 60, left: 60 };
+            const width = 1100 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+            
+            const svg = d3.select('#chart-overall')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+            
+            const models = experimentData.models;
+            const metrics = ['accuracy', 'weighted_f1', 'macro_f1'];
+            const metricLabels = { 'accuracy': 'Accuracy', 'weighted_f1': 'Weighted F1', 'macro_f1': 'Macro F1' };
+            
+            // Scales
+            const x0 = d3.scaleBand()
+                .domain(models)
+                .range([0, width])
+                .paddingInner(0.2);
+            
+            const x1 = d3.scaleBand()
+                .domain(metrics)
+                .range([0, x0.bandwidth()])
+                .padding(0.1);
+            
+            const y = d3.scaleLinear()
+                .domain([0, 0.7])
+                .range([height, 0]);
+            
+            // Grid
+            svg.append('g')
+                .attr('class', 'grid')
+                .call(d3.axisLeft(y).tickSize(-width).tickFormat(''));
+            
+            // Axes
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x0))
+                .selectAll('text')
+                .style('font-size', '11px');
+            
+            svg.append('g')
+                .call(d3.axisLeft(y).tickFormat(d => (d * 100).toFixed(0) + '%'));
+            
+            // Y-axis label
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('y', -45)
+                .attr('x', -height / 2)
+                .attr('text-anchor', 'middle')
+                .text('Score');
+            
+            // Bars with error bars
+            models.forEach(model => {
+                const modelGroup = svg.append('g')
+                    .attr('transform', `translate(${x0(model)},0)`);
+                
+                metrics.forEach(metric => {
+                    const data = experimentData.metrics[metric][model];
+                    const barX = x1(metric);
+                    const barWidth = x1.bandwidth();
+                    const barY = y(data.mean);
+                    const barHeight = height - barY;
+                    
+                    // Bar
+                    modelGroup.append('rect')
+                        .attr('x', barX)
+                        .attr('y', barY)
+                        .attr('width', barWidth)
+                        .attr('height', barHeight)
+                        .attr('fill', metricColors[metric])
+                        .attr('opacity', 0.85)
+                        .on('mouseover', function(event) {
+                            d3.select(this).attr('opacity', 1);
+                            showTooltip(event, `
+                                <div class="model-name">${model}</div>
+                                <div class="metric-value">${metricLabels[metric]}: <span>${(data.mean * 100).toFixed(1)}% ± ${(data.std * 100).toFixed(1)}%</span></div>
+                            `);
+                        })
+                        .on('mouseout', function() {
+                            d3.select(this).attr('opacity', 0.85);
+                            hideTooltip();
+                        });
+                    
+                    // Error bar
+                    const errorX = barX + barWidth / 2;
+                    const errorTop = y(data.mean + data.std);
+                    const errorBottom = y(data.mean - data.std);
+                    
+                    modelGroup.append('line')
+                        .attr('class', 'error-bar')
+                        .attr('x1', errorX)
+                        .attr('x2', errorX)
+                        .attr('y1', errorTop)
+                        .attr('y2', errorBottom)
+                        .attr('stroke', '#333');
+                    
+                    // Error caps
+                    const capWidth = barWidth * 0.4;
+                    modelGroup.append('line')
+                        .attr('class', 'error-cap')
+                        .attr('x1', errorX - capWidth / 2)
+                        .attr('x2', errorX + capWidth / 2)
+                        .attr('y1', errorTop)
+                        .attr('y2', errorTop)
+                        .attr('stroke', '#333');
+                    
+                    modelGroup.append('line')
+                        .attr('class', 'error-cap')
+                        .attr('x1', errorX - capWidth / 2)
+                        .attr('x2', errorX + capWidth / 2)
+                        .attr('y1', errorBottom)
+                        .attr('y2', errorBottom)
+                        .attr('stroke', '#333');
+                });
+            });
+            
+            // Legend
+            const legend = svg.append('g')
+                .attr('transform', `translate(${width + 20}, 20)`);
+            
+            metrics.forEach((metric, i) => {
+                const legendRow = legend.append('g')
+                    .attr('transform', `translate(0, ${i * 25})`);
+                
+                legendRow.append('rect')
+                    .attr('width', 16)
+                    .attr('height', 16)
+                    .attr('fill', metricColors[metric])
+                    .attr('rx', 2);
+                
+                legendRow.append('text')
+                    .attr('x', 24)
+                    .attr('y', 12)
+                    .attr('font-size', '12px')
+                    .text(metricLabels[metric]);
+            });
+        }
+        
+        // ============================================================
+        // Chart 2: Accuracy Ranking (Horizontal Bar)
+        // ============================================================
+        function createAccuracyChart() {
+            const margin = { top: 20, right: 80, bottom: 40, left: 100 };
+            const width = 450 - margin.left - margin.right;
+            const height = 300 - margin.top - margin.bottom;
+            
+            const svg = d3.select('#chart-accuracy')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+            
+            // Sort by accuracy
+            const sortedModels = experimentData.models.slice().sort((a, b) => 
+                experimentData.metrics.accuracy[b].mean - experimentData.metrics.accuracy[a].mean
+            );
+            
+            const y = d3.scaleBand()
+                .domain(sortedModels)
+                .range([0, height])
+                .padding(0.3);
+            
+            const x = d3.scaleLinear()
+                .domain([0, 0.7])
+                .range([0, width]);
+            
+            // Grid
+            svg.append('g')
+                .attr('class', 'grid')
+                .call(d3.axisBottom(x).tickSize(height).tickFormat(''));
+            
+            // Axes
+            svg.append('g')
+                .call(d3.axisLeft(y));
+            
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x).tickFormat(d => (d * 100).toFixed(0) + '%'));
+            
+            // Bars
+            sortedModels.forEach(model => {
+                const data = experimentData.metrics.accuracy[model];
+                const category = experimentData.categories[model];
+                
+                svg.append('rect')
+                    .attr('y', y(model))
+                    .attr('x', 0)
+                    .attr('height', y.bandwidth())
+                    .attr('width', x(data.mean))
+                    .attr('fill', categoryColors[category])
+                    .attr('opacity', 0.85)
+                    .on('mouseover', function(event) {
+                        d3.select(this).attr('opacity', 1);
+                        showTooltip(event, `
+                            <div class="model-name">${model} (${category})</div>
+                            <div class="metric-value">Accuracy: <span>${(data.mean * 100).toFixed(1)}% ± ${(data.std * 100).toFixed(1)}%</span></div>
+                        `);
+                    })
+                    .on('mouseout', function() {
+                        d3.select(this).attr('opacity', 0.85);
+                        hideTooltip();
+                    });
+                
+                // Error bar
+                svg.append('line')
+                    .attr('x1', x(data.mean - data.std))
+                    .attr('x2', x(data.mean + data.std))
+                    .attr('y1', y(model) + y.bandwidth() / 2)
+                    .attr('y2', y(model) + y.bandwidth() / 2)
+                    .attr('stroke', '#333')
+                    .attr('stroke-width', 1.5);
+                
+                // Value label
+                svg.append('text')
+                    .attr('x', x(data.mean) + 8)
+                    .attr('y', y(model) + y.bandwidth() / 2 + 4)
+                    .attr('font-size', '11px')
+                    .attr('fill', '#333')
+                    .text(`${(data.mean * 100).toFixed(1)}%`);
+            });
+        }
+        
+        // ============================================================
+        // Chart 3: Stability (CV%)
+        // ============================================================
+        function createStabilityChart() {
+            const margin = { top: 20, right: 40, bottom: 80, left: 60 };
+            const width = 450 - margin.left - margin.right;
+            const height = 300 - margin.top - margin.bottom;
+            
+            const svg = d3.select('#chart-stability')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+            
+            // Calculate CV
+            const cvData = experimentData.models.map(model => {
+                const data = experimentData.metrics.accuracy[model];
+                return {
+                    model,
+                    cv: (data.std / data.mean) * 100,
+                    category: experimentData.categories[model]
+                };
+            }).sort((a, b) => a.cv - b.cv);
+            
+            const x = d3.scaleBand()
+                .domain(cvData.map(d => d.model))
+                .range([0, width])
+                .padding(0.3);
+            
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(cvData, d => d.cv) * 1.2])
+                .range([height, 0]);
+            
+            // Grid
+            svg.append('g')
+                .attr('class', 'grid')
+                .call(d3.axisLeft(y).tickSize(-width).tickFormat(''));
+            
+            // Axes
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x))
+                .selectAll('text')
+                .attr('transform', 'rotate(-45)')
+                .style('text-anchor', 'end');
+            
+            svg.append('g')
+                .call(d3.axisLeft(y).tickFormat(d => d.toFixed(0) + '%'));
+            
+            // Y-axis label
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('y', -45)
+                .attr('x', -height / 2)
+                .attr('text-anchor', 'middle')
+                .text('CV (%)');
+            
+            // Bars
+            svg.selectAll('.cv-bar')
+                .data(cvData)
+                .enter()
+                .append('rect')
+                .attr('x', d => x(d.model))
+                .attr('y', d => y(d.cv))
+                .attr('width', x.bandwidth())
+                .attr('height', d => height - y(d.cv))
+                .attr('fill', d => categoryColors[d.category])
+                .attr('opacity', 0.85)
+                .on('mouseover', function(event, d) {
+                    d3.select(this).attr('opacity', 1);
+                    showTooltip(event, `
+                        <div class="model-name">${d.model}</div>
+                        <div class="metric-value">CV: <span>${d.cv.toFixed(2)}%</span></div>
+                        <div class="metric-value" style="font-size:10px; margin-top:4px">Lower = More Stable</div>
+                    `);
+                })
+                .on('mouseout', function() {
+                    d3.select(this).attr('opacity', 0.85);
+                    hideTooltip();
+                });
+            
+            // Value labels
+            svg.selectAll('.cv-label')
+                .data(cvData)
+                .enter()
+                .append('text')
+                .attr('x', d => x(d.model) + x.bandwidth() / 2)
+                .attr('y', d => y(d.cv) - 5)
+                .attr('text-anchor', 'middle')
+                .attr('font-size', '10px')
+                .attr('fill', '#333')
+                .text(d => d.cv.toFixed(1) + '%');
+        }
+        
+        // ============================================================
+        // Chart 4: Per-Class F1 Heatmap
+        // ============================================================
+        function createHeatmap() {
+            const margin = { top: 40, right: 100, bottom: 60, left: 100 };
+            const width = 800 - margin.left - margin.right;
+            const height = 350 - margin.top - margin.bottom;
+            
+            const svg = d3.select('#chart-heatmap')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+            
+            const models = experimentData.models;
+            const classes = ['Aggression', 'Social', 'Non-Social'];
+            
+            const x = d3.scaleBand()
+                .domain(classes)
+                .range([0, width])
+                .padding(0.05);
+            
+            const y = d3.scaleBand()
+                .domain(models)
+                .range([0, height])
+                .padding(0.05);
+            
+            const colorScale = d3.scaleSequential()
+                .domain([0.15, 0.70])
+                .interpolator(d3.interpolateYlGnBu);
+            
+            // Axes
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x));
+            
+            svg.append('g')
+                .call(d3.axisLeft(y));
+            
+            // Heatmap cells
+            models.forEach((model, mi) => {
+                experimentData.perClassF1[model].forEach((f1, ci) => {
+                    svg.append('rect')
+                        .attr('x', x(classes[ci]))
+                        .attr('y', y(model))
+                        .attr('width', x.bandwidth())
+                        .attr('height', y.bandwidth())
+                        .attr('fill', colorScale(f1))
+                        .attr('stroke', 'white')
+                        .attr('stroke-width', 2)
+                        .on('mouseover', function(event) {
+                            showTooltip(event, `
+                                <div class="model-name">${model}</div>
+                                <div class="metric-value">${classes[ci]}</div>
+                                <div class="metric-value">F1 Score: <span>${(f1 * 100).toFixed(1)}%</span></div>
+                            `);
+                        })
+                        .on('mouseout', hideTooltip);
+                    
+                    // Cell value
+                    svg.append('text')
+                        .attr('x', x(classes[ci]) + x.bandwidth() / 2)
+                        .attr('y', y(model) + y.bandwidth() / 2 + 4)
+                        .attr('text-anchor', 'middle')
+                        .attr('font-size', '11px')
+                        .attr('fill', f1 > 0.45 ? 'white' : '#333')
+                        .attr('font-weight', '500')
+                        .text((f1 * 100).toFixed(0) + '%');
+                });
+            });
+            
+            // Color legend
+            const legendWidth = 20;
+            const legendHeight = height;
+            const legendScale = d3.scaleLinear()
+                .domain([0.15, 0.70])
+                .range([legendHeight, 0]);
+            
+            const legendAxis = d3.axisRight(legendScale)
+                .ticks(5)
+                .tickFormat(d => (d * 100).toFixed(0) + '%');
+            
+            const legend = svg.append('g')
+                .attr('transform', `translate(${width + 30}, 0)`);
+            
+            const gradient = svg.append('defs')
+                .append('linearGradient')
+                .attr('id', 'heatmap-gradient')
+                .attr('x1', '0%')
+                .attr('x2', '0%')
+                .attr('y1', '100%')
+                .attr('y2', '0%');
+            
+            const nStops = 10;
+            for (let i = 0; i <= nStops; i++) {
+                const t = i / nStops;
+                gradient.append('stop')
+                    .attr('offset', `${t * 100}%`)
+                    .attr('stop-color', colorScale(0.15 + t * 0.55));
+            }
+            
+            legend.append('rect')
+                .attr('width', legendWidth)
+                .attr('height', legendHeight)
+                .style('fill', 'url(#heatmap-gradient)');
+            
+            legend.append('g')
+                .attr('transform', `translate(${legendWidth}, 0)`)
+                .call(legendAxis);
+        }
+        
+        // ============================================================
+        // Statistics Table
+        // ============================================================
+        function createStatsTable() {
+            const container = d3.select('#stats-table');
+            
+            const table = container.append('table').attr('class', 'stats-table');
+            
+            // Header
+            const thead = table.append('thead');
+            const headerRow = thead.append('tr');
+            headerRow.append('th').text('Model');
+            headerRow.append('th').text('Category');
+            headerRow.append('th').text('Accuracy');
+            headerRow.append('th').text('Weighted F1');
+            headerRow.append('th').text('Macro F1');
+            
+            // Find best values
+            const bestAcc = d3.max(experimentData.models, m => experimentData.metrics.accuracy[m].mean);
+            const bestWF1 = d3.max(experimentData.models, m => experimentData.metrics.weighted_f1[m].mean);
+            const bestMF1 = d3.max(experimentData.models, m => experimentData.metrics.macro_f1[m].mean);
+            
+            // Body
+            const tbody = table.append('tbody');
+            
+            // Sort by accuracy
+            const sortedModels = experimentData.models.slice().sort((a, b) => 
+                experimentData.metrics.accuracy[b].mean - experimentData.metrics.accuracy[a].mean
+            );
+            
+            sortedModels.forEach(model => {
+                const row = tbody.append('tr');
+                
+                row.append('td').attr('class', 'model-cell').text(model);
+                
+                const category = experimentData.categories[model];
+                const categoryCell = row.append('td');
+                categoryCell.append('span')
+                    .attr('class', `category-badge category-${category.toLowerCase().replace(' ', '-')}`)
+                    .text(category);
+                
+                const accData = experimentData.metrics.accuracy[model];
+                const accCell = row.append('td')
+                    .text(`${(accData.mean * 100).toFixed(1)}% ± ${(accData.std * 100).toFixed(1)}%`);
+                if (accData.mean === bestAcc) accCell.attr('class', 'best-value');
+                
+                const wf1Data = experimentData.metrics.weighted_f1[model];
+                const wf1Cell = row.append('td')
+                    .text(`${(wf1Data.mean * 100).toFixed(1)}% ± ${(wf1Data.std * 100).toFixed(1)}%`);
+                if (wf1Data.mean === bestWF1) wf1Cell.attr('class', 'best-value');
+                
+                const mf1Data = experimentData.metrics.macro_f1[model];
+                const mf1Cell = row.append('td')
+                    .text(`${(mf1Data.mean * 100).toFixed(1)}% ± ${(mf1Data.std * 100).toFixed(1)}%`);
+                if (mf1Data.mean === bestMF1) mf1Cell.attr('class', 'best-value');
+            });
+        }
+        
+        // ============================================================
+        // Initialize all charts
+        // ============================================================
+        createOverallChart();
+        createAccuracyChart();
+        createStabilityChart();
+        createHeatmap();
+        createStatsTable();
+    </script>
+</body>
+</html>
