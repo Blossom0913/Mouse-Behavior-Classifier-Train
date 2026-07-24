@@ -345,35 +345,92 @@ LightGBM     0.6123±0.0145    0.6012±0.0167    0.5789±0.0189    ...
 
 ---
 
+## Software Versions
+
+### Main Software Versions
+
+| Software | Version |
+|------|------|
+| DeepLabCut | 3.0.0rc14 |
+| Python | 3.10.20 |
+| PyTorch | 2.11.0 |
+| scikit-learn | 1.7.2 |
+| NumPy | 2.2.6 |
+| Pandas | 2.3.3 |
+| SciPy | 1.15.3 |
+
+### Full Dependency Versions
+
+**Core runtime**
+```
+python == 3.10.20
+numpy == 2.2.6
+pandas == 2.3.3
+scipy == 1.15.3
+scikit-learn == 1.7.2
+```
+
+**Deep learning**
+```
+torch == 2.11.0
+torchvision == 0.22.0
+torchaudio == 2.11.0
+```
+
+**Classical ML / ensemble**
+```
+lightgbm == 4.6.0
+xgboost == 2.1.4
+hmmlearn == 0.3.3
+joblib == 1.5.2
+```
+
+**Data IO**
+```
+openpyxl == 3.1.5
+h5py == 3.14.0
+tables == 3.8.0
+```
+
+**Visualization**
+```
+matplotlib == 3.10.6
+seaborn == 0.13.2
+```
+
+**Notebook / tooling**
+```
+jupyter == 1.1.1
+notebook == 6.5.7
+ipython == 8.37.0
+pytest == 8.4.2
+```
+
+---
+
 ## License
 
 MIT License
 
 ---
 
+
+
 ## Citation
 
-If you use this code or dataset, please cite:
+If you find this dataset or code useful in your research, please cite our paper:
 
 ```bibtex
-@misc{mouse_behavior_classification,
-  author = {Blossom0913},
-  title = {Mouse Behavior Classification},
-  year = {2024},
-  publisher = {GitHub},
-  url = {https://github.com/Blossom0913/Mouse-Behavior-Classifier-Train}
+@article{chen2026ratbench,
+  title   = {A Benchmark Dataset for Rat Social and Aggressive Behavior Classification},
+  author  = {Chen, Xutian and Li, Guangyu and Zhang, Zihan and Xu, Mingkun and Wang, Zuoren and Shi, Qianqian},
+  journal = {Scientific Data},
+  year    = {2026},
+  doi     = {10.1038/s41597-026-07888-8}
 }
 ```
 
-Dataset DOI: https://doi.org/10.6084/m9.figshare.30393298
-
-- Dataset: [https://doi.org/10.6084/m9.figshare.30393298](https://doi.org/10.6084/m9.figshare.30393298.v2)
-- Code: [https://doi.org/10.5281/zenodo.18298715](https://doi.org/10.5281/zenodo.18298715)
-
-Example citation format:
-
-```
-Author(s). DeepLabVideo: Mouse Behavior Classification (Version 2026.01).
-Dataset: Figshare. DOI: 10.6084/m9.figshare.30393298
-```
+📖 [Paper](https://doi.org/10.1038/s41597-026-07888-8) ·
+📊 [Dataset](https://doi.org/10.6084/m9.figshare.30393298) ·
+⚖️ Licensed under [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)
 
