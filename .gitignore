@@ -1,1 +1,27 @@
 dataset58/*.xlsx
+
+# Python cache and bytecode
+__pycache__/
+*.py[cod]
+
+# Build and packaging artifacts
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
+logs/
+
+# Local IDE/editor settings
+.vscode/
+.idea/
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# OS/temp files
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
